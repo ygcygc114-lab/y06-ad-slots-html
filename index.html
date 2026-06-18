@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Y06 广告位优化 - HTML 查看</title><style>
+
+    :root { color-scheme: light; --bg:#f6f7f9; --panel:#fff; --text:#17202a; --muted:#687382; --line:#dde3ea; --accent:#0f766e; --accent-2:#bf5b04; --soft:#e8f4f2; --mobile:#5b5fc7; --mobile-soft:#eeeeff; --shadow:0 16px 40px rgba(23,32,42,.08); }
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:0}
+    header{position:sticky;top:0;z-index:10;background:rgba(246,247,249,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)} .topbar{max-width:1480px;margin:0 auto;padding:16px 24px;display:grid;gap:12px}
+    .title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:16px} h1{font-size:clamp(24px,3vw,38px);line-height:1.16;margin:0;font-weight:760}.subtitle{color:var(--muted);margin:4px 0 0}.stats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.stat{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px;color:var(--muted);white-space:nowrap}
+    .platform-tabs{display:flex;gap:8px;flex-wrap:wrap}.tab-button{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:8px;padding:8px 12px;cursor:pointer;font-weight:700}.tab-button[aria-pressed="true"]{color:var(--accent);border-color:var(--accent);background:var(--soft)}
+    .toolbar{display:grid;grid-template-columns:minmax(220px,1fr) auto auto auto;gap:10px;align-items:center}.search-wrap{position:relative;min-width:0}input[type="search"],select{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);padding:11px 12px;font:inherit;outline:none}.search-wrap input[type="search"]{padding-right:42px}input[type="search"]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(15,118,110,.13)}button{font:inherit}.icon-button,.action-button{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:8px;cursor:pointer}.icon-button:hover,.action-button:hover{border-color:var(--accent);color:var(--accent);background:var(--soft)}.icon-button:focus-visible,.action-button:focus-visible,.tab-button:focus-visible{outline:3px solid rgba(15,118,110,.18);outline-offset:2px}.clear-search{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:28px;height:28px;display:none;align-items:center;justify-content:center;line-height:1}.clear-search.show{display:inline-flex}.toolbar-actions{display:inline-flex;gap:8px;white-space:nowrap}.action-button{padding:9px 12px}.toggle{display:inline-flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--muted);user-select:none;white-space:nowrap}.search-hit{background:#fff176;color:#17202a;border-radius:4px;box-shadow:0 0 0 2px rgba(255,241,118,.55);padding:0 2px}
+    main{max-width:1480px;margin:0 auto;padding:24px;display:grid;grid-template-columns:300px 1fr;gap:22px;align-items:start}aside{position:sticky;top:176px;max-height:calc(100vh - 198px);overflow:auto;padding-right:4px}.nav-panel,.outline-panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}.nav-panel h2,.outline-panel h2{font-size:14px;margin:0;padding:14px 14px 8px;color:var(--muted);font-weight:700}.nav-group,.outline-group{padding-bottom:10px}.nav-group[hidden],.outline-group[hidden]{display:none}.nav-group h3,.outline-group h3{margin:4px 14px 6px;font-size:13px;color:var(--text);display:flex;justify-content:space-between;align-items:center}.nav-group h3 span{color:var(--muted);font-weight:600}.nav-list{list-style:none;margin:0;padding:0 8px}.nav-list a{display:block;text-decoration:none;color:var(--text);padding:8px 10px;border-radius:6px;line-height:1.35;border-left:3px solid transparent}.nav-list a:hover{background:var(--soft);color:var(--accent)}.nav-list a.is-active{background:var(--soft);color:var(--accent);border-left-color:var(--accent);font-weight:700}.nav-list a.is-filtered-out{opacity:.38}
+    .content{display:grid;gap:18px}.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:18px;scroll-margin-top:176px}.card[hidden]{display:none}.card[data-platform="mobile"]{border-top:4px solid var(--mobile)}.card[data-platform="web"]{border-top:4px solid var(--accent)}.card-head{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}.num{display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:34px;border-radius:8px;background:var(--soft);color:var(--accent);font-weight:800;text-decoration:none}.card[data-platform="mobile"] .num{background:var(--mobile-soft);color:var(--mobile)}.card-kicker{color:var(--muted);font-size:12px;font-weight:800;margin-bottom:2px}.card h2{margin:0;font-size:20px;line-height:1.38;font-weight:740}.meta-row{display:grid;grid-template-columns:minmax(220px,1fr) minmax(120px,.35fr) minmax(120px,.35fr);gap:14px;margin:15px 0}.label{display:block;color:var(--muted);font-size:12px;line-height:1.2;margin-bottom:5px}code{background:#f2f5f7;border:1px solid var(--line);border-radius:6px;padding:4px 7px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#1f3a4a;word-break:break-all}.tags{display:flex;gap:6px;flex-wrap:wrap}.tag{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:13px;font-weight:700}.ratio{background:#fff3e4;color:var(--accent-2);border:1px solid #ffd9a7}.platform-tag{background:var(--mobile-soft);color:var(--mobile);border:1px solid #dadaff}.muted{color:var(--muted)}.image-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0 14px}.image-grid a{display:flex;min-height:170px;background:#f2f4f6;border:1px solid var(--line);border-radius:8px;overflow:hidden;align-items:center;justify-content:center}.image-grid img{max-width:100%;max-height:360px;width:auto;height:auto;display:block}.no-image{display:flex;align-items:center;justify-content:center;min-height:82px;margin:12px 0 14px;border:1px dashed #c8d0d8;border-radius:8px;color:var(--muted);background:#fafbfc}.notes{border-left:3px solid var(--accent);padding-left:12px;margin-top:8px}.card[data-platform="mobile"] .notes{border-left-color:var(--mobile)}.notes p{margin:0 0 10px;white-space:normal}.notes p:last-child{margin-bottom:0}.empty-note{margin:0}details{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}summary{cursor:pointer;color:var(--accent);font-weight:700}.outline-panel{margin-top:18px;padding-bottom:10px}.tree{margin:0;padding:0 12px 12px 28px}.tree li{margin:6px 0;padding-left:3px}.tree ul{margin-top:5px;padding-left:20px;border-left:1px solid var(--line)}.tree-title{white-space:pre-wrap}.mini{padding-top:8px}.tree-image-link{display:inline-flex;vertical-align:middle;margin-left:8px;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#f5f6f7}.tree-image-link img{width:54px;height:40px;object-fit:contain;display:block}.empty-results{display:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px;color:var(--muted);text-align:center}.empty-results.show{display:block}.back-top{position:fixed;right:22px;bottom:22px;width:42px;height:42px;z-index:12;display:none;align-items:center;justify-content:center;box-shadow:var(--shadow)}.back-top.show{display:inline-flex}.lightbox{position:fixed;inset:0;z-index:30;display:grid;grid-template-rows:auto 1fr;background:rgba(10,16,20,.78);padding:18px}.lightbox[hidden]{display:none}.lightbox-bar{display:flex;justify-content:flex-end;gap:8px;margin:0 auto 12px;width:min(1180px,100%)}.lightbox-close{background:#fff;color:var(--text);min-width:42px;height:38px;font-size:20px}.lightbox-body{min-height:0;display:flex;align-items:center;justify-content:center}.lightbox img{max-width:min(1180px,100%);max-height:calc(100vh - 92px);object-fit:contain;background:#fff;border-radius:8px;box-shadow:0 28px 80px rgba(0,0,0,.35)}footer{max-width:1480px;margin:0 auto;padding:0 24px 32px;color:var(--muted)}
+    @media (max-width:1040px){.toolbar{grid-template-columns:1fr}.title-row{align-items:flex-start;flex-direction:column}.stats{justify-content:flex-start}main{grid-template-columns:1fr;padding:16px}aside{position:static;max-height:none}.meta-row{grid-template-columns:1fr}.card{scroll-margin-top:244px}.toolbar-actions{display:grid;grid-template-columns:1fr 1fr}.back-top{right:14px;bottom:14px}}
+    @media print{header,aside,details,footer,.back-top,.lightbox{display:none}body{background:white}main{display:block;padding:0}.card{break-inside:avoid;box-shadow:none;margin-bottom:12px}}
+  </style></head>
+<body>
+  <header><div class="topbar"><div class="title-row"><div><h1>Y06 广告位优化</h1><p class="subtitle">WEB 与移动端广告位合并查看，支持统一搜索、端类型切换、比例筛选和图片预览。</p></div><div class="stats"><span class="stat">全部 63 个</span><span class="stat">WEB 29 个</span><span class="stat">移动端 34 个</span><span class="stat">图片节点 61 个</span><span class="stat">资源图片 60 张</span><span class="stat" id="resultCount">显示 63 个</span></div></div><div class="platform-tabs" aria-label="端类型筛选"><button class="tab-button" type="button" data-platform="all" aria-pressed="true">全部</button><button class="tab-button" type="button" data-platform="web" aria-pressed="false">WEB</button><button class="tab-button" type="button" data-platform="mobile" aria-pressed="false">移动端</button></div><div class="toolbar"><div class="search-wrap"><input id="search" type="search" placeholder="搜索广告位名称、标识、说明、WEB、移动端..." autocomplete="off"><button class="icon-button clear-search" id="clearSearch" type="button" aria-label="清空搜索">×</button></div><select id="ratioFilter" aria-label="按比例筛选"><option value="">全部比例</option><option value="1：1">1：1</option><option value="3：4">3：4</option><option value="16：9">16：9</option><option value="9：19.5">9：19.5</option></select><label class="toggle"><input id="imageOnly" type="checkbox"> 仅看有图</label><div class="toolbar-actions"><button class="action-button" id="expandAll" type="button">展开层级</button><button class="action-button" id="collapseAll" type="button">收起层级</button></div></div></div></header>
+  <main><aside><section class="nav-panel"><h2>广告位目录</h2><div class="nav-group" data-platform="web"><h3>WEB <span>29</span></h3><ol class="nav-list"><li><a href="#web-item-1" data-platform="web">01. 【W】首页弹窗九宫格图标广告</a></li><li><a href="#web-item-2" data-platform="web">02. 【W】主页弹窗广告</a></li><li><a href="#web-item-3" data-platform="web">03. 【W】各主页顶部icon式广告位<br><span style="font-weight:700;color:#E46D57">【❗️仅展示在首页封面页❗️】</span></a></li><li><a href="#web-item-4" data-platform="web">04. 用于各页面底部图标广告<br>【W】用于各页面底部图标广告【❗️展示在所有页面，包含个人中心、AI第三方、全部分类❗️】</a></li><li><a href="#web-item-5" data-platform="web">05. 【W】主页浮窗广告位</a></li><li><a href="#web-item-6" data-platform="web">06. 【W】主页底部悬浮广告</a></li><li><a href="#web-item-7" data-platform="web">07. 【W】各页面顶部横幅</a></li><li><a href="#web-item-8" data-platform="web">08. Y06网站底部广告（原【W】首页底部横幅）</a></li><li><a href="#web-item-9" data-platform="web">09. 【W】用于各页面底部图标广告</a></li><li><a href="#web-item-10" data-platform="web">10. 【W】信息流图标位广告<br>【❗️仅首页封面页❗️】</a></li><li><a href="#web-item-11" data-platform="web">11. 「Y06」-菜单插入广告<br>【原【W】首页-中插-横幅】</a></li><li><a href="#web-item-12" data-platform="web">12. 全局评论<br>【所有涉及评论功能的】</a></li><li><a href="#web-item-13" data-platform="web">13. 【W】漫画/写真详情顶部横幅</a></li><li><a href="#web-item-14" data-platform="web">14. 【W】漫画/写真详情底部横幅</a></li><li><a href="#web-item-15" data-platform="web">15. Y06 漫画列表广告（原【W】漫画/小说/写真列表中的穿插广告）</a></li><li><a href="#web-item-16" data-platform="web">16. Y06 长视频列表广告（原【W】长视频列表中的穿插广告）</a></li><li><a href="#web-item-17" data-platform="web">17. Y06 短视频内容列表广告（原【W】短视频列表中的穿插广告）</a></li><li><a href="#web-item-18" data-platform="web">18. 【W】帖子列表中的穿插广告-横版-A1</a></li><li><a href="#web-item-19" data-platform="web">19. 【W】帖子详情页顶部横幅</a></li><li><a href="#web-item-20" data-platform="web">20. 【W】帖子详情页底部横幅</a></li><li><a href="#web-item-21" data-platform="web">21. 【W】视频详情页面弹窗广告</a></li><li><a href="#web-item-22" data-platform="web">22. Y06 网站视频贴片广告（【W】播放前广告）</a></li><li><a href="#web-item-23" data-platform="web">23. 【W】播放暂停覆盖广告</a></li><li><a href="#web-item-24" data-platform="web">24. 【W】播放结束覆盖广告</a></li><li><a href="#web-item-25" data-platform="web">25. 【W】视频详情页播放器下方结构位横幅</a></li><li><a href="#web-item-26" data-platform="web">26. 【W】个人中心弹窗广告</a></li><li><a href="#web-item-27" data-platform="web">27. 【W】个人中心中部横幅</a></li><li><a href="#web-item-28" data-platform="web">28. 应用中心底部广告banner（原【W】应用中心顶部横幅）</a></li><li><a href="#web-item-29" data-platform="web">29. 应用中心顶部广告（原【W】应用中心顶部横幅）</a></li></ol></div><div class="nav-group" data-platform="mobile"><h3>移动端 <span>34</span></h3><ol class="nav-list"><li><a href="#mobile-item-1" data-platform="mobile">01. 【A】主开屏广告位</a></li><li><a href="#mobile-item-2" data-platform="mobile">02. 启动页九宫格<br>【热门应用】</a></li><li><a href="#mobile-item-3" data-platform="mobile">03. 主页弹窗广告</a></li><li><a href="#mobile-item-4" data-platform="mobile">04. 【A】各主页顶部icon式广告位<br>【❗️仅展示在首页封面页❗️】</a></li><li><a href="#mobile-item-5" data-platform="mobile">05. 用于各页面底部图标广告<br>【A】首页底部横幅】<br>【❗️仅展示在首页封面页❗️】</a></li><li><a href="#mobile-item-6" data-platform="mobile">06. 【A】主页浮窗广告位<br>【展示位置：<br>1.首页封面页；<br>2.一级菜单页面（除应用中心/AI第三方）；<br>3.视频详情页悬浮；<br>4.漫画阅读页悬浮；<br>5.帖子阅读页悬浮；<br>6.小说阅读页悬浮；】</a></li><li><a href="#mobile-item-7" data-platform="mobile">07. 【A】主页底部悬浮广告<br>【展示位置：<br>1.首页封面页；<br>2.一级菜单页面（除应用中心/AI第三方）；<br>3.视频详情页悬浮；<br>4.漫画阅读页悬浮；<br>5.帖子阅读页悬浮；<br>6.小说阅读页悬浮；】</a></li><li><a href="#mobile-item-8" data-platform="mobile">08. Y06-视频贴片广告</a></li><li><a href="#mobile-item-9" data-platform="mobile">09. 【A】首页顶部横幅<br>【❗️仅首页封面页下展示❗️】】</a></li><li><a href="#mobile-item-10" data-platform="mobile">10. 【A】首页底部横幅<br>【❗️仅首页封面页下展示❗️】】</a></li><li><a href="#mobile-item-11" data-platform="mobile">11. 一级菜单广告</a></li><li><a href="#mobile-item-12" data-platform="mobile">12. 【A】二级菜单顶部-banner （二级菜单页里不显示一级菜单的banner）</a></li><li><a href="#mobile-item-13" data-platform="mobile">13. Y06 短视频内容列表广告</a></li><li><a href="#mobile-item-14" data-platform="mobile">14. 【A】首页-中插-横幅</a></li><li><a href="#mobile-item-15" data-platform="mobile">15. 【A】搜索页顶部图标位广告-A</a></li><li><a href="#mobile-item-16" data-platform="mobile">16. 【A】搜索页顶部横幅-B</a></li><li><a href="#mobile-item-17" data-platform="mobile">17. APP应用中心顶部banner</a></li><li><a href="#mobile-item-18" data-platform="mobile">18. 【A】应用中心底部横幅</a></li><li><a href="#mobile-item-19" data-platform="mobile">19. 【A】应用中心底部悬浮广告</a></li><li><a href="#mobile-item-20" data-platform="mobile">20. 【A】漫画/写真详情顶部横幅</a></li><li><a href="#mobile-item-21" data-platform="mobile">21. 【A】漫画/写真详情底部横幅</a></li><li><a href="#mobile-item-22" data-platform="mobile">22. Y06 漫画列表广告</a></li><li><a href="#mobile-item-23" data-platform="mobile">23. 【A】视频详情页面弹窗广告</a></li><li><a href="#mobile-item-24" data-platform="mobile">24. 【A】播放暂停覆盖广告</a></li><li><a href="#mobile-item-25" data-platform="mobile">25. 【A】播放结束覆盖广告</a></li><li><a href="#mobile-item-26" data-platform="mobile">26. Y06 视频详情页 banner</a></li><li><a href="#mobile-item-27" data-platform="mobile">27. 【A】个人中心顶部横幅</a></li><li><a href="#mobile-item-28" data-platform="mobile">28. 【A】个人中心弹窗广告</a></li><li><a href="#mobile-item-29" data-platform="mobile">29. 【A】个人中心中部横幅</a></li><li><a href="#mobile-item-30" data-platform="mobile">30. 【A】帖子详情页顶部横幅</a></li><li><a href="#mobile-item-31" data-platform="mobile">31. 【A】帖子详情页底部横幅</a></li><li><a href="#mobile-item-32" data-platform="mobile">32. Y06 帖子内容列表广告 APP</a></li><li><a href="#mobile-item-33" data-platform="mobile">33. Y06 长视频列表广告</a></li><li><a href="#mobile-item-34" data-platform="mobile">34. 评论广告【全局】</a></li></ol></div></section><section class="outline-panel"><h2>完整原始层级</h2><div class="outline-group" data-platform="web"><h3>WEB</h3><ul class="tree"><li><span class="tree-title">Y06-WEB广告位优化</span><ul><li><span class="tree-title">【W】首页弹窗九宫格图标广告</span><ul><li><span class="tree-title">w.home.overlay.icon</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/e9baffdb50fc1be9c329a032c77a68de66e1499e4b89046bd3608dbbd35cd825.png" target="_blank"><img src="resources/e9baffdb50fc1be9c329a032c77a68de66e1499e4b89046bd3608dbbd35cd825.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】主页弹窗广告</span><ul><li><span class="tree-title">w.home.overlay.popup</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/c150ebdfaf20cad1c6dbdfe20fa1af9f9d63db70ffd1540006e479490a236f80.png" target="_blank"><img src="resources/c150ebdfaf20cad1c6dbdfe20fa1af9f9d63db70ffd1540006e479490a236f80.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】各主页顶部icon式广告位<br><span style="font-weight:700;color:#E46D57">【❗️仅展示在首页封面页❗️】</span></span><ul><li><span class="tree-title">w.home.top.icon</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/f5172d62a31822a65ec0e47db055985e8aae15b8da4e32d4368e111000c86dd1.png" target="_blank"><img src="resources/f5172d62a31822a65ec0e47db055985e8aae15b8da4e32d4368e111000c86dd1.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">用于各页面底部图标广告<br>【W】用于各页面底部图标广告【❗️展示在所有页面，包含个人中心、AI第三方、全部分类❗️】</span><ul><li><span class="tree-title">w.home.bottom.icon</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/d99e7ca5245f53a21f3888912e00b9ea89af2af2a472c4c9c96ba9e443106356.png" target="_blank"><img src="resources/d99e7ca5245f53a21f3888912e00b9ea89af2af2a472c4c9c96ba9e443106356.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】主页浮窗广告位</span><ul><li><span class="tree-title">w.home.overlay.float</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" target="_blank"><img src="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">1.固定页面左侧悬浮；<br>2.区别与H5，不支持拖拽<br>展示页面：<br>首页封面页；<br>一级菜单页面（除应用中心/AI第三方）；<br>视频详情页悬浮；<br>漫画阅读页悬浮；<br>帖子阅读页悬浮；<br>小说阅读页悬浮；</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】主页底部悬浮广告</span><ul><li><span class="tree-title">w.home.bottom.float</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" target="_blank"><img src="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">1.固定页面左侧悬浮；<br>2.区别与H5，不支持拖拽<br>展示页面：<br>首页封面页；<br>一级菜单页面（除应用中心/AI第三方）；<br>视频详情页悬浮；<br>漫画阅读页悬浮；<br>帖子阅读页悬浮；<br>小说阅读页悬浮；</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】各页面顶部横幅</span><ul><li><span class="tree-title">w.home.top.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/9c833f12a9617456f60285754b8b635e41b4a4f94e341b88ebaa5137b8c1d763.png" target="_blank"><img src="resources/9c833f12a9617456f60285754b8b635e41b4a4f94e341b88ebaa5137b8c1d763.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">0614叶孤城：全局；（任何一个页面都存在）包括AI，应用中心，全部分类，各详情页，阅读页；</span><ul><li><span class="tree-title">点击广告调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">Y06网站底部广告（原【W】首页底部横幅）</span><ul><li><span class="tree-title">webFooterAdY06</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/407ff3a4764910c955043debe5ab9df1bb8109e04424e927ecf3ea50c34619b5.png" target="_blank"><img src="resources/407ff3a4764910c955043debe5ab9df1bb8109e04424e927ecf3ea50c34619b5.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">0614叶孤城：全局；（任何一个页面都存在）包括AI，应用中心，全部分类，各详情页，阅读页；</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】用于各页面底部图标广告</span><ul><li><span class="tree-title">w.home.bottom.icon</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/6721b2c3e0340ac2c38b89fd73497538c4ce0b9f2209c1e35844d49687457309.png" target="_blank"><img src="resources/6721b2c3e0340ac2c38b89fd73497538c4ce0b9f2209c1e35844d49687457309.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">0614叶孤城：全局；（任何一个页面都存在）包括AI，应用中心，全部分类，各详情页，阅读页；</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】信息流图标位广告<br>【❗️仅首页封面页❗️】</span><ul><li><span class="tree-title">w.feed.inline.icon</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/d83feafbacf6322aba3d682b2ce554dbac803bc5257cadf95c632f820b58d0b8.png" target="_blank"><img src="resources/d83feafbacf6322aba3d682b2ce554dbac803bc5257cadf95c632f820b58d0b8.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">1.只展示在首页封面页<br>1.1 间隔数=n，（n＞1）每n个菜单后插入广告<br>2.需设置间隔数<br>3.以下情景不展示：<br>3.1 广告位下无有效素材<br>3.2间隔数设置为0<br>3.3 间隔数设置大于展示在封面页的可配置一级菜单数</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">「Y06」-菜单插入广告<br>【原【W】首页-中插-横幅】</span><ul><li><span class="tree-title">feedInlineBannerY06</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/d279f39b9f41e5b8e2af71318a42b32507327eb9ff8794f55ebe6ed33c3058cf.png" target="_blank"><img src="resources/d279f39b9f41e5b8e2af71318a42b32507327eb9ff8794f55ebe6ed33c3058cf.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">1.只展示在首页封面页<br>1.1 间隔数=n，（n＞1）每n个菜单后插入广告<br>2.需设置间隔数<br>3.以下情景不展示：<br>3.1 广告位下无有效素材<br>3.2间隔数设置为0<br>3.3 间隔数设置大于展示在封面页的可配置一级菜单数</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">全局评论<br>【所有涉及评论功能的】</span><ul><li><span class="tree-title">commentListAd</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/05e8c8818d33a1564ca0c9bf823b828ce2465a3307b15c429c6ce167deaf8305.png" target="_blank"><img src="resources/05e8c8818d33a1564ca0c9bf823b828ce2465a3307b15c429c6ce167deaf8305.png" alt="广告位截图"></a><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/99e3db3f639d9d0ced94a13920334157d80ffeeebbdf8ec09604ef4f5c880483.png" target="_blank"><img src="resources/99e3db3f639d9d0ced94a13920334157d80ffeeebbdf8ec09604ef4f5c880483.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span><ul><li><span class="tree-title">帖子评论</span><ul><li><span class="tree-title">✅</span></li></ul></li><li><span class="tree-title">长视频评论</span></li><li><span class="tree-title">短视频评论</span></li><li><span class="tree-title">漫画评论</span></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】漫画/写真详情顶部横幅</span><ul><li><span class="tree-title">w.image_detail.top.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/ecfbde3e279aa63a0df26c76a5c97f3893bb1e0631d8fe1ea2efeceb21ce46bf.png" target="_blank"><img src="resources/ecfbde3e279aa63a0df26c76a5c97f3893bb1e0631d8fe1ea2efeceb21ce46bf.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】漫画/写真详情底部横幅</span><ul><li><span class="tree-title">w.image_detail.bottom.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/1a09887720f791cdeb6df9b610d6d3fbbc1f543be8b920c30cfe463ddbfa8f1e.png" target="_blank"><img src="resources/1a09887720f791cdeb6df9b610d6d3fbbc1f543be8b920c30cfe463ddbfa8f1e.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">Y06 漫画列表广告（原【W】漫画/小说/写真列表中的穿插广告）</span><ul><li><span class="tree-title">comicContentListAdY06</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/50edb584ed26cd1a7efa44adadde71702f396950b205a38d3c8989e926a3e3cd.png" target="_blank"><img src="resources/50edb584ed26cd1a7efa44adadde71702f396950b205a38d3c8989e926a3e3cd.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">Y06 长视频列表广告（原【W】长视频列表中的穿插广告）</span><ul><li><span class="tree-title">videoListMidAdY06</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">Y06 短视频内容列表广告（原【W】短视频列表中的穿插广告）</span><ul><li><span class="tree-title">shortVideoListAdY06</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】帖子列表中的穿插广告-横版-A1</span><ul><li><span class="tree-title">postContentListAdY06</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】帖子详情页顶部横幅</span><ul><li><span class="tree-title">w.community_detail.top.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/76de3ee0d4025a3766edb38ce02d39cf38ad97872ab5f9cb0d08585287918922.png" target="_blank"><img src="resources/76de3ee0d4025a3766edb38ce02d39cf38ad97872ab5f9cb0d08585287918922.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】帖子详情页底部横幅</span><ul><li><span class="tree-title">w.community_detail.linline.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/98fc378b5e67159bffe56d269193263fa5d570ae8e5da8cd02151718cbd44426.png" target="_blank"><img src="resources/98fc378b5e67159bffe56d269193263fa5d570ae8e5da8cd02151718cbd44426.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】视频详情页面弹窗广告</span><ul><li><span class="tree-title">w.video_detail.overlay.popup</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/7535d897d35cb9f381bb3e97a24cad902e9aaa660c38e60e8473d9f3660203b0.png" target="_blank"><img src="resources/7535d897d35cb9f381bb3e97a24cad902e9aaa660c38e60e8473d9f3660203b0.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">Y06 网站视频贴片广告（【W】播放前广告）</span><ul><li><span class="tree-title">videoPatchAdY06</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/ccc3fd03cf639028ff61c039fc4326b5e33b6c2dc0a97ca725d23a3bfce922c1.png" target="_blank"><img src="resources/ccc3fd03cf639028ff61c039fc4326b5e33b6c2dc0a97ca725d23a3bfce922c1.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">需关注关闭跳转概率</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/08e2aa3040eb3f5c10f8774bf5c76a2d91448ce15fab01028aba4df040790f65.png" target="_blank"><img src="resources/08e2aa3040eb3f5c10f8774bf5c76a2d91448ce15fab01028aba4df040790f65.png" alt="广告位截图"></a><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】播放暂停覆盖广告</span><ul><li><span class="tree-title">w.player.overlay.pause</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/1a20d99fcd4b2705a6e7e49634a595ff32d2ba60306f1c4a4ad985168859150b.png" target="_blank"><img src="resources/1a20d99fcd4b2705a6e7e49634a595ff32d2ba60306f1c4a4ad985168859150b.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">需关注关闭跳转概率</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】播放结束覆盖广告</span><ul><li><span class="tree-title">w.player.overlay.end</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/c2399e85a26b732681868a5117c5959530f9cd39f7d6509a107a78b9849901d0.png" target="_blank"><img src="resources/c2399e85a26b732681868a5117c5959530f9cd39f7d6509a107a78b9849901d0.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】视频详情页播放器下方结构位横幅</span><ul><li><span class="tree-title">w.video_detail.inline.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/824094d37dd0567f9dfc90e9d1d41397063302d4c072d051b83898c3b13317a0.png" target="_blank"><img src="resources/824094d37dd0567f9dfc90e9d1d41397063302d4c072d051b83898c3b13317a0.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】个人中心弹窗广告</span><ul><li><span class="tree-title">w.profile.overlay.popup</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/3aa328698b0ca7db3c63db2a32d6fa56ffc2a6df39e9a5c3517a233eed7c756c.png" target="_blank"><img src="resources/3aa328698b0ca7db3c63db2a32d6fa56ffc2a6df39e9a5c3517a233eed7c756c.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【W】个人中心中部横幅</span><ul><li><span class="tree-title">w.profile.inline.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/cdcf0dcd685ef581db65ceeaeb4bca0bfee5b67ff8295704741364c17bc069cf.png" target="_blank"><img src="resources/cdcf0dcd685ef581db65ceeaeb4bca0bfee5b67ff8295704741364c17bc069cf.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">应用中心底部广告banner（原【W】应用中心顶部横幅）</span><ul><li><span class="tree-title">appCenterBottom</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/df744ec6b131eb75c982cf99a74b616d8d43e7564d590c238438acc12b3176fc.png" target="_blank"><img src="resources/df744ec6b131eb75c982cf99a74b616d8d43e7564d590c238438acc12b3176fc.png" alt="广告位截图"></a></li></ul></li></ul></li><li><span class="tree-title">应用中心顶部广告（原【W】应用中心顶部横幅）</span><ul><li><span class="tree-title">appCenterHomeTop</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/bbf401a91081e704c5ff5fe6f470022b500abced0a08086aecd6ef7e53863f5a.png" target="_blank"><img src="resources/bbf401a91081e704c5ff5fe6f470022b500abced0a08086aecd6ef7e53863f5a.png" alt="广告位截图"></a></li></ul></li></ul></li></ul></li></ul></div><div class="outline-group" data-platform="mobile"><h3>移动端</h3><ul class="tree"><li><span class="tree-title">Y06-移动端</span><ul><li><span class="tree-title">【A】主开屏广告位</span><ul><li><span class="tree-title">launch.overlay.main</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/d768f1275ba5a0a1024ffc3eec423e1a279773f90040c810c988e075c00a7220.png" target="_blank"><img src="resources/d768f1275ba5a0a1024ffc3eec423e1a279773f90040c810c988e075c00a7220.png" alt="广告位截图"></a><ul><li><span class="tree-title">注意关注强制观看x秒</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li><li><span class="tree-title">9：19.5</span></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">启动页九宫格<br>【热门应用】</span><ul><li><span class="tree-title">home.overlay.icon</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/055c14b4472e1f20613955e5459a63f254b6972016872773e0e345eaa4b0bc07.png" target="_blank"><img src="resources/055c14b4472e1f20613955e5459a63f254b6972016872773e0e345eaa4b0bc07.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">主页弹窗广告</span><ul><li><span class="tree-title">home.overlay.popup</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/a72c9c1370451aba5d3a79cc2341f49a80aabbd537853085ca0b869c5bed02ca.png" target="_blank"><img src="resources/a72c9c1370451aba5d3a79cc2341f49a80aabbd537853085ca0b869c5bed02ca.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】各主页顶部icon式广告位<br>【❗️仅展示在首页封面页❗️】</span><ul><li><span class="tree-title">home.top.icon</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/b570465c9bfc3f889f3f14cd06aa37b0471c82501ffa6817e2717f08e2534319.png" target="_blank"><img src="resources/b570465c9bfc3f889f3f14cd06aa37b0471c82501ffa6817e2717f08e2534319.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">用于各页面底部图标广告<br>【A】首页底部横幅】<br>【❗️仅展示在首页封面页❗️】</span><ul><li><span class="tree-title">home.bottom.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/61a62cfc07446067805f6c4e05ef90d4dc086737d79db3780ea8a611267abbf4.png" target="_blank"><img src="resources/61a62cfc07446067805f6c4e05ef90d4dc086737d79db3780ea8a611267abbf4.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】主页浮窗广告位<br>【展示位置：<br>1.首页封面页；<br>2.一级菜单页面（除应用中心/AI第三方）；<br>3.视频详情页悬浮；<br>4.漫画阅读页悬浮；<br>5.帖子阅读页悬浮；<br>6.小说阅读页悬浮；】</span><ul><li><span class="tree-title">home.overlay.float</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/f261a449828ef2b5e367c2d5f12919fcd8572a8d42e2c9eb4e4b479dcebee3f2.png" target="_blank"><img src="resources/f261a449828ef2b5e367c2d5f12919fcd8572a8d42e2c9eb4e4b479dcebee3f2.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】主页底部悬浮广告<br>【展示位置：<br>1.首页封面页；<br>2.一级菜单页面（除应用中心/AI第三方）；<br>3.视频详情页悬浮；<br>4.漫画阅读页悬浮；<br>5.帖子阅读页悬浮；<br>6.小说阅读页悬浮；】</span><ul><li><span class="tree-title">home.bottom.float</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/32f9b1dbb008066f320d6852eca4394442fdc5144cde386811a871a791a04bed.png" target="_blank"><img src="resources/32f9b1dbb008066f320d6852eca4394442fdc5144cde386811a871a791a04bed.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">Y06-视频贴片广告</span><ul><li><span class="tree-title">videoPatchAdY06APP</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/24eecc532c9972e6fd0293f04a0d5d0ed8a845c7a31735908f7b47f612e608aa.png" target="_blank"><img src="resources/24eecc532c9972e6fd0293f04a0d5d0ed8a845c7a31735908f7b47f612e608aa.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span><ul><li><span class="tree-title">需注意关闭概率</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】首页顶部横幅<br>【❗️仅首页封面页下展示❗️】】</span><ul><li><span class="tree-title">home.top.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/2a1f4ffb2066912760861aa56964006fc55e2ac7a38a84ec8d8919b7cc770d96.png" target="_blank"><img src="resources/2a1f4ffb2066912760861aa56964006fc55e2ac7a38a84ec8d8919b7cc770d96.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】首页底部横幅<br>【❗️仅首页封面页下展示❗️】】</span><ul><li><span class="tree-title">home.bottom.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">一级菜单广告</span><ul><li><span class="tree-title">appBannerY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/4b317f657d9fc278e191ed91355021009edb3c628a0b62f470e84184410a775d.png" target="_blank"><img src="resources/4b317f657d9fc278e191ed91355021009edb3c628a0b62f470e84184410a775d.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】二级菜单顶部-banner （二级菜单页里不显示一级菜单的banner）</span><ul><li><span class="tree-title">bannerAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/a8afde6094083b675d976033536233dbbbfb05c1e333bc3c13203bc09209c0de.png" target="_blank"><img src="resources/a8afde6094083b675d976033536233dbbbfb05c1e333bc3c13203bc09209c0de.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">Y06 短视频内容列表广告</span><ul><li><span class="tree-title">shortVideoListAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/0ec6d8824b0d8b28bc6d8f896a557d6e5485d88e3909eb71ae0eadf9384e0ba8.png" target="_blank"><img src="resources/0ec6d8824b0d8b28bc6d8f896a557d6e5485d88e3909eb71ae0eadf9384e0ba8.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】首页-中插-横幅</span><ul><li><span class="tree-title">home.inline.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/7173dd7e41896cade77f0393795a8cd580a9b716ed1b613fe1f46f7f0a801186.png" target="_blank"><img src="resources/7173dd7e41896cade77f0393795a8cd580a9b716ed1b613fe1f46f7f0a801186.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span><ul><li><span class="tree-title">1.只展示在首页封面页<br>1.1 间隔数=n，（n＞1）每n个菜单后插入广告<br>2.需设置间隔数<br>3.以下情景不展示：<br>3.1 广告位下无有效素材<br>3.2间隔数设置为0<br>3.3 间隔数设置大于展示在封面页的可配置一级菜单数</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】搜索页顶部图标位广告-A</span><ul><li><span class="tree-title">search.top.icon</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/9e2a45edfeaab09a1ed988e1105b609bd7c1173cb486dd7f66e5b210532b9ab0.png" target="_blank"><img src="resources/9e2a45edfeaab09a1ed988e1105b609bd7c1173cb486dd7f66e5b210532b9ab0.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】搜索页顶部横幅-B</span><ul><li><span class="tree-title">searchPageAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/69c0248fe70d14f996f9d201374a45d99ada20a8e813e491ae8ac2b3e7af5dc2.png" target="_blank"><img src="resources/69c0248fe70d14f996f9d201374a45d99ada20a8e813e491ae8ac2b3e7af5dc2.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">APP应用中心顶部banner</span><ul><li><span class="tree-title">appCenterHomeTopapp</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/b7277a32bd512cef3382f2bebf444052eb30e7ab992f2b38af38355f392bfbb7.png" target="_blank"><img src="resources/b7277a32bd512cef3382f2bebf444052eb30e7ab992f2b38af38355f392bfbb7.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">【A】应用中心底部横幅</span><ul><li><span class="tree-title">application.bottom.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/69e12e9a84816457b5331a80a653ae2526b978f95ea80bfca952ce26f655e281.png" target="_blank"><img src="resources/69e12e9a84816457b5331a80a653ae2526b978f95ea80bfca952ce26f655e281.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】应用中心底部悬浮广告</span><ul><li><span class="tree-title">appCenterBottomapp</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/f7d5aa69d428abc892e04e9b79cba99b7b6260dddb51dba606cf88c822ff3792.png" target="_blank"><img src="resources/f7d5aa69d428abc892e04e9b79cba99b7b6260dddb51dba606cf88c822ff3792.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】漫画/写真详情顶部横幅</span><ul><li><span class="tree-title">image_detail.top.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/7e728ac1a4f1cbb9318bda38fddf2d8acbe01f2e6ed3a8a48c02057f86c53a1e.png" target="_blank"><img src="resources/7e728ac1a4f1cbb9318bda38fddf2d8acbe01f2e6ed3a8a48c02057f86c53a1e.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】漫画/写真详情底部横幅</span><ul><li><span class="tree-title">image_detail.bottom.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/cd9d5bef20959f0b15e59c27d4d6ea90556e7330c757ab6f09a2ab652677511b.png" target="_blank"><img src="resources/cd9d5bef20959f0b15e59c27d4d6ea90556e7330c757ab6f09a2ab652677511b.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">Y06 漫画列表广告</span><ul><li><span class="tree-title">comicContentListAdY06app</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/6575a90b01f969478b33914044537bb8cd288ab87bda50cc54c9a90bd5b4aac2.png" target="_blank"><img src="resources/6575a90b01f969478b33914044537bb8cd288ab87bda50cc54c9a90bd5b4aac2.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】视频详情页面弹窗广告</span><ul><li><span class="tree-title">video_detail.overlay.popup</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/68f896436877715d3c6b3ba9c188ac0cc5712122731d64e491da1c01b31a455e.png" target="_blank"><img src="resources/68f896436877715d3c6b3ba9c188ac0cc5712122731d64e491da1c01b31a455e.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】播放暂停覆盖广告</span><ul><li><span class="tree-title">player.overlay.pause</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/8640ad0e7a48d1f2a8ea49f3bdef9b9e92d5267d1c896c561b46dd6eba775102.png" target="_blank"><img src="resources/8640ad0e7a48d1f2a8ea49f3bdef9b9e92d5267d1c896c561b46dd6eba775102.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】播放结束覆盖广告</span><ul><li><span class="tree-title">player.overlay.end</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/b14aa1c47fb9605fad83d9c04a1e97a98f5b4ac26263018e48c7d283da5c4279.png" target="_blank"><img src="resources/b14aa1c47fb9605fad83d9c04a1e97a98f5b4ac26263018e48c7d283da5c4279.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">Y06 视频详情页 banner</span><ul><li><span class="tree-title">videoDetailPageAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/a7dad864197aa62d8af4f8553a78d3a246f8835fe1cd43ae4b09fca28fa5198e.png" target="_blank"><img src="resources/a7dad864197aa62d8af4f8553a78d3a246f8835fe1cd43ae4b09fca28fa5198e.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】个人中心顶部横幅</span><ul><li><span class="tree-title">profile.top.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/3213291a6bf7c359e6a4c836f2edb0560d3f2f948abf0f3e2c114a10cfc9dc99.png" target="_blank"><img src="resources/3213291a6bf7c359e6a4c836f2edb0560d3f2f948abf0f3e2c114a10cfc9dc99.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】个人中心弹窗广告</span><ul><li><span class="tree-title">profile.overlay.popup</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/e47fcfa7125d9f110ccf8e1f045a19b5b28fa1861fc6b201f4018286f19ae44a.png" target="_blank"><img src="resources/e47fcfa7125d9f110ccf8e1f045a19b5b28fa1861fc6b201f4018286f19ae44a.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】个人中心中部横幅</span><ul><li><span class="tree-title">profile.inline.banne</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/dc7adb63f43808e7b70f6586478a1f0a78fabbdcf8ba52db8b65df6e9cd36f83.png" target="_blank"><img src="resources/dc7adb63f43808e7b70f6586478a1f0a78fabbdcf8ba52db8b65df6e9cd36f83.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】帖子详情页顶部横幅</span><ul><li><span class="tree-title">community_detail.top.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/3e55f4f3dd28f59cff21a63c36b3d70e7cd2f745c6b1b656675f57ca4d514356.png" target="_blank"><img src="resources/3e55f4f3dd28f59cff21a63c36b3d70e7cd2f745c6b1b656675f57ca4d514356.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">【A】帖子详情页底部横幅</span><ul><li><span class="tree-title">community_detail.linline.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/93075c82e7af13be66791d3c8de7a46a385c29f9bdeaa899436d6959809db1f4.png" target="_blank"><img src="resources/93075c82e7af13be66791d3c8de7a46a385c29f9bdeaa899436d6959809db1f4.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">Y06 帖子内容列表广告 APP</span><ul><li><span class="tree-title">postContentListAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/b9b1f6f30d98f5dae459638ab4b7fe4d8f530f83d48aa634c73ab4974008cce6.png" target="_blank"><img src="resources/b9b1f6f30d98f5dae459638ab4b7fe4d8f530f83d48aa634c73ab4974008cce6.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；</span></li><li><span class="tree-title">2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">Y06 长视频列表广告</span><ul><li><span class="tree-title">videoListMidAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/13de3d1192bcafe420313963a3eaa8c386d33f6965423a0a4d6609a2f8057f0d.png" target="_blank"><img src="resources/13de3d1192bcafe420313963a3eaa8c386d33f6965423a0a4d6609a2f8057f0d.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；</span></li><li><span class="tree-title">2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></li><li><span class="tree-title">评论广告【全局】</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/db4bfcb834001e4577b6723dcbe8e3ad53df201829780b34cf14e1fffbaa59c4.png" target="_blank"><img src="resources/db4bfcb834001e4577b6723dcbe8e3ad53df201829780b34cf14e1fffbaa59c4.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span></li></ul></li></ul></li></ul></li></ul></li></ul></div></section></aside><section class="content" id="cards">
+    <article class="card" id="web-item-1" data-platform="web" data-search="web 【w】首页弹窗九宫格图标广告 w.home.overlay.icon 1：1" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-1">01</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】首页弹窗九宫格图标广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.home.overlay.icon</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/e9baffdb50fc1be9c329a032c77a68de66e1499e4b89046bd3608dbbd35cd825.png" target="_blank"><img src="resources/e9baffdb50fc1be9c329a032c77a68de66e1499e4b89046bd3608dbbd35cd825.png" alt="【W】首页弹窗九宫格图标广告 示例图"></a></div>
+      <p class="muted empty-note">无额外说明</p>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.home.overlay.icon</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/e9baffdb50fc1be9c329a032c77a68de66e1499e4b89046bd3608dbbd35cd825.png" target="_blank"><img src="resources/e9baffdb50fc1be9c329a032c77a68de66e1499e4b89046bd3608dbbd35cd825.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-2" data-platform="web" data-search="web 【w】主页弹窗广告 w.home.overlay.popup 3：4" data-ratio="3：4" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-2">02</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】主页弹窗广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.home.overlay.popup</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">3：4</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/c150ebdfaf20cad1c6dbdfe20fa1af9f9d63db70ffd1540006e479490a236f80.png" target="_blank"><img src="resources/c150ebdfaf20cad1c6dbdfe20fa1af9f9d63db70ffd1540006e479490a236f80.png" alt="【W】主页弹窗广告 示例图"></a></div>
+      <p class="muted empty-note">无额外说明</p>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.home.overlay.popup</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/c150ebdfaf20cad1c6dbdfe20fa1af9f9d63db70ffd1540006e479490a236f80.png" target="_blank"><img src="resources/c150ebdfaf20cad1c6dbdfe20fa1af9f9d63db70ffd1540006e479490a236f80.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-3" data-platform="web" data-search="web 【w】各主页顶部icon式广告位
+【❗️仅展示在首页封面页❗️】 w.home.top.icon 1：1 点击调/fronted/ad/track" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-3">03</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】各主页顶部icon式广告位<br><span style="font-weight:700;color:#E46D57">【❗️仅展示在首页封面页❗️】</span></h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.home.top.icon</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/f5172d62a31822a65ec0e47db055985e8aae15b8da4e32d4368e111000c86dd1.png" target="_blank"><img src="resources/f5172d62a31822a65ec0e47db055985e8aae15b8da4e32d4368e111000c86dd1.png" alt="【W】各主页顶部icon式广告位
+【❗️仅展示在首页封面页❗️】 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.home.top.icon</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/f5172d62a31822a65ec0e47db055985e8aae15b8da4e32d4368e111000c86dd1.png" target="_blank"><img src="resources/f5172d62a31822a65ec0e47db055985e8aae15b8da4e32d4368e111000c86dd1.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-4" data-platform="web" data-search="web 用于各页面底部图标广告
+【w】用于各页面底部图标广告【❗️展示在所有页面，包含个人中心、ai第三方、全部分类❗️】 w.home.bottom.icon 1：1" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-4">04</a>
+        <div><div class="card-kicker">WEB</div><h2>用于各页面底部图标广告<br>【W】用于各页面底部图标广告【❗️展示在所有页面，包含个人中心、AI第三方、全部分类❗️】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.home.bottom.icon</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/d99e7ca5245f53a21f3888912e00b9ea89af2af2a472c4c9c96ba9e443106356.png" target="_blank"><img src="resources/d99e7ca5245f53a21f3888912e00b9ea89af2af2a472c4c9c96ba9e443106356.png" alt="用于各页面底部图标广告
+【W】用于各页面底部图标广告【❗️展示在所有页面，包含个人中心、AI第三方、全部分类❗️】 示例图"></a></div>
+      <p class="muted empty-note">无额外说明</p>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.home.bottom.icon</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/d99e7ca5245f53a21f3888912e00b9ea89af2af2a472c4c9c96ba9e443106356.png" target="_blank"><img src="resources/d99e7ca5245f53a21f3888912e00b9ea89af2af2a472c4c9c96ba9e443106356.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-5" data-platform="web" data-search="web 【w】主页浮窗广告位 w.home.overlay.float 1：1 1.固定页面左侧悬浮；
+2.区别与h5，不支持拖拽
+展示页面：
+首页封面页；
+一级菜单页面（除应用中心/ai第三方）；
+视频详情页悬浮；
+漫画阅读页悬浮；
+帖子阅读页悬浮；
+小说阅读页悬浮； 点击调/fronted/ad/track" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-5">05</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】主页浮窗广告位</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.home.overlay.float</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" target="_blank"><img src="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" alt="【W】主页浮窗广告位 示例图"></a></div>
+      <div class="notes"><p>1.固定页面左侧悬浮；<br>2.区别与H5，不支持拖拽<br>展示页面：<br>首页封面页；<br>一级菜单页面（除应用中心/AI第三方）；<br>视频详情页悬浮；<br>漫画阅读页悬浮；<br>帖子阅读页悬浮；<br>小说阅读页悬浮；</p><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.home.overlay.float</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" target="_blank"><img src="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">1.固定页面左侧悬浮；<br>2.区别与H5，不支持拖拽<br>展示页面：<br>首页封面页；<br>一级菜单页面（除应用中心/AI第三方）；<br>视频详情页悬浮；<br>漫画阅读页悬浮；<br>帖子阅读页悬浮；<br>小说阅读页悬浮；</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-6" data-platform="web" data-search="web 【w】主页底部悬浮广告 w.home.bottom.float 1：1 1.固定页面左侧悬浮；
+2.区别与h5，不支持拖拽
+展示页面：
+首页封面页；
+一级菜单页面（除应用中心/ai第三方）；
+视频详情页悬浮；
+漫画阅读页悬浮；
+帖子阅读页悬浮；
+小说阅读页悬浮； 点击调/fronted/ad/track" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-6">06</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】主页底部悬浮广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.home.bottom.float</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" target="_blank"><img src="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" alt="【W】主页底部悬浮广告 示例图"></a></div>
+      <div class="notes"><p>1.固定页面左侧悬浮；<br>2.区别与H5，不支持拖拽<br>展示页面：<br>首页封面页；<br>一级菜单页面（除应用中心/AI第三方）；<br>视频详情页悬浮；<br>漫画阅读页悬浮；<br>帖子阅读页悬浮；<br>小说阅读页悬浮；</p><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.home.bottom.float</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" target="_blank"><img src="resources/3cc9a37ce13d97e7fe14d72efd50fcd0e844794ba14081a87d90adab10e707dd.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">1.固定页面左侧悬浮；<br>2.区别与H5，不支持拖拽<br>展示页面：<br>首页封面页；<br>一级菜单页面（除应用中心/AI第三方）；<br>视频详情页悬浮；<br>漫画阅读页悬浮；<br>帖子阅读页悬浮；<br>小说阅读页悬浮；</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-7" data-platform="web" data-search="web 【w】各页面顶部横幅 w.home.top.banner 16：9 0614叶孤城：全局；（任何一个页面都存在）包括ai，应用中心，全部分类，各详情页，阅读页； 点击广告调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-7">07</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】各页面顶部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.home.top.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/9c833f12a9617456f60285754b8b635e41b4a4f94e341b88ebaa5137b8c1d763.png" target="_blank"><img src="resources/9c833f12a9617456f60285754b8b635e41b4a4f94e341b88ebaa5137b8c1d763.png" alt="【W】各页面顶部横幅 示例图"></a></div>
+      <div class="notes"><p>0614叶孤城：全局；（任何一个页面都存在）包括AI，应用中心，全部分类，各详情页，阅读页；</p><p>点击广告调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.home.top.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/9c833f12a9617456f60285754b8b635e41b4a4f94e341b88ebaa5137b8c1d763.png" target="_blank"><img src="resources/9c833f12a9617456f60285754b8b635e41b4a4f94e341b88ebaa5137b8c1d763.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">0614叶孤城：全局；（任何一个页面都存在）包括AI，应用中心，全部分类，各详情页，阅读页；</span><ul><li><span class="tree-title">点击广告调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-8" data-platform="web" data-search="web y06网站底部广告（原【w】首页底部横幅） webfooterady06 16：9 0614叶孤城：全局；（任何一个页面都存在）包括ai，应用中心，全部分类，各详情页，阅读页； 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-8">08</a>
+        <div><div class="card-kicker">WEB</div><h2>Y06网站底部广告（原【W】首页底部横幅）</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>webFooterAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/407ff3a4764910c955043debe5ab9df1bb8109e04424e927ecf3ea50c34619b5.png" target="_blank"><img src="resources/407ff3a4764910c955043debe5ab9df1bb8109e04424e927ecf3ea50c34619b5.png" alt="Y06网站底部广告（原【W】首页底部横幅） 示例图"></a></div>
+      <div class="notes"><p>0614叶孤城：全局；（任何一个页面都存在）包括AI，应用中心，全部分类，各详情页，阅读页；</p><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">webFooterAdY06</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/407ff3a4764910c955043debe5ab9df1bb8109e04424e927ecf3ea50c34619b5.png" target="_blank"><img src="resources/407ff3a4764910c955043debe5ab9df1bb8109e04424e927ecf3ea50c34619b5.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">0614叶孤城：全局；（任何一个页面都存在）包括AI，应用中心，全部分类，各详情页，阅读页；</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-9" data-platform="web" data-search="web 【w】用于各页面底部图标广告 w.home.bottom.icon 1：1 0614叶孤城：全局；（任何一个页面都存在）包括ai，应用中心，全部分类，各详情页，阅读页； 点击调/fronted/ad/track" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-9">09</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】用于各页面底部图标广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.home.bottom.icon</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/6721b2c3e0340ac2c38b89fd73497538c4ce0b9f2209c1e35844d49687457309.png" target="_blank"><img src="resources/6721b2c3e0340ac2c38b89fd73497538c4ce0b9f2209c1e35844d49687457309.png" alt="【W】用于各页面底部图标广告 示例图"></a></div>
+      <div class="notes"><p>0614叶孤城：全局；（任何一个页面都存在）包括AI，应用中心，全部分类，各详情页，阅读页；</p><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.home.bottom.icon</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/6721b2c3e0340ac2c38b89fd73497538c4ce0b9f2209c1e35844d49687457309.png" target="_blank"><img src="resources/6721b2c3e0340ac2c38b89fd73497538c4ce0b9f2209c1e35844d49687457309.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">0614叶孤城：全局；（任何一个页面都存在）包括AI，应用中心，全部分类，各详情页，阅读页；</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-10" data-platform="web" data-search="web 【w】信息流图标位广告
+【❗️仅首页封面页❗️】 w.feed.inline.icon 1：1 1.只展示在首页封面页
+1.1 间隔数=n，（n＞1）每n个菜单后插入广告
+2.需设置间隔数
+3.以下情景不展示：
+3.1 广告位下无有效素材
+3.2间隔数设置为0
+3.3 间隔数设置大于展示在封面页的可配置一级菜单数" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-10">10</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】信息流图标位广告<br>【❗️仅首页封面页❗️】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.feed.inline.icon</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/d83feafbacf6322aba3d682b2ce554dbac803bc5257cadf95c632f820b58d0b8.png" target="_blank"><img src="resources/d83feafbacf6322aba3d682b2ce554dbac803bc5257cadf95c632f820b58d0b8.png" alt="【W】信息流图标位广告
+【❗️仅首页封面页❗️】 示例图"></a></div>
+      <div class="notes"><p>1.只展示在首页封面页<br>1.1 间隔数=n，（n＞1）每n个菜单后插入广告<br>2.需设置间隔数<br>3.以下情景不展示：<br>3.1 广告位下无有效素材<br>3.2间隔数设置为0<br>3.3 间隔数设置大于展示在封面页的可配置一级菜单数</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.feed.inline.icon</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/d83feafbacf6322aba3d682b2ce554dbac803bc5257cadf95c632f820b58d0b8.png" target="_blank"><img src="resources/d83feafbacf6322aba3d682b2ce554dbac803bc5257cadf95c632f820b58d0b8.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">1.只展示在首页封面页<br>1.1 间隔数=n，（n＞1）每n个菜单后插入广告<br>2.需设置间隔数<br>3.以下情景不展示：<br>3.1 广告位下无有效素材<br>3.2间隔数设置为0<br>3.3 间隔数设置大于展示在封面页的可配置一级菜单数</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-11" data-platform="web" data-search="web 「y06」-菜单插入广告
+【原【w】首页-中插-横幅】 feedinlinebannery06 16：9 1.只展示在首页封面页
+1.1 间隔数=n，（n＞1）每n个菜单后插入广告
+2.需设置间隔数
+3.以下情景不展示：
+3.1 广告位下无有效素材
+3.2间隔数设置为0
+3.3 间隔数设置大于展示在封面页的可配置一级菜单数 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-11">11</a>
+        <div><div class="card-kicker">WEB</div><h2>「Y06」-菜单插入广告<br>【原【W】首页-中插-横幅】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>feedInlineBannerY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/d279f39b9f41e5b8e2af71318a42b32507327eb9ff8794f55ebe6ed33c3058cf.png" target="_blank"><img src="resources/d279f39b9f41e5b8e2af71318a42b32507327eb9ff8794f55ebe6ed33c3058cf.png" alt="「Y06」-菜单插入广告
+【原【W】首页-中插-横幅】 示例图"></a></div>
+      <div class="notes"><p>1.只展示在首页封面页<br>1.1 间隔数=n，（n＞1）每n个菜单后插入广告<br>2.需设置间隔数<br>3.以下情景不展示：<br>3.1 广告位下无有效素材<br>3.2间隔数设置为0<br>3.3 间隔数设置大于展示在封面页的可配置一级菜单数</p><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">feedInlineBannerY06</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/d279f39b9f41e5b8e2af71318a42b32507327eb9ff8794f55ebe6ed33c3058cf.png" target="_blank"><img src="resources/d279f39b9f41e5b8e2af71318a42b32507327eb9ff8794f55ebe6ed33c3058cf.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">1.只展示在首页封面页<br>1.1 间隔数=n，（n＞1）每n个菜单后插入广告<br>2.需设置间隔数<br>3.以下情景不展示：<br>3.1 广告位下无有效素材<br>3.2间隔数设置为0<br>3.3 间隔数设置大于展示在封面页的可配置一级菜单数</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-12" data-platform="web" data-search="web 全局评论
+【所有涉及评论功能的】 commentlistad 1：1 点击调/fronted/ad/track 帖子评论 ✅ 长视频评论 短视频评论 漫画评论" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-12">12</a>
+        <div><div class="card-kicker">WEB</div><h2>全局评论<br>【所有涉及评论功能的】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>commentListAd</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/05e8c8818d33a1564ca0c9bf823b828ce2465a3307b15c429c6ce167deaf8305.png" target="_blank"><img src="resources/05e8c8818d33a1564ca0c9bf823b828ce2465a3307b15c429c6ce167deaf8305.png" alt="全局评论
+【所有涉及评论功能的】 示例图"></a><a href="resources/99e3db3f639d9d0ced94a13920334157d80ffeeebbdf8ec09604ef4f5c880483.png" target="_blank"><img src="resources/99e3db3f639d9d0ced94a13920334157d80ffeeebbdf8ec09604ef4f5c880483.png" alt="全局评论
+【所有涉及评论功能的】 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">commentListAd</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/05e8c8818d33a1564ca0c9bf823b828ce2465a3307b15c429c6ce167deaf8305.png" target="_blank"><img src="resources/05e8c8818d33a1564ca0c9bf823b828ce2465a3307b15c429c6ce167deaf8305.png" alt="广告位截图"></a><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/99e3db3f639d9d0ced94a13920334157d80ffeeebbdf8ec09604ef4f5c880483.png" target="_blank"><img src="resources/99e3db3f639d9d0ced94a13920334157d80ffeeebbdf8ec09604ef4f5c880483.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span><ul><li><span class="tree-title">帖子评论</span><ul><li><span class="tree-title">✅</span></li></ul></li><li><span class="tree-title">长视频评论</span></li><li><span class="tree-title">短视频评论</span></li><li><span class="tree-title">漫画评论</span></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-13" data-platform="web" data-search="web 【w】漫画/写真详情顶部横幅 w.image_detail.top.banner 16：9 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-13">13</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】漫画/写真详情顶部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.image_detail.top.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/ecfbde3e279aa63a0df26c76a5c97f3893bb1e0631d8fe1ea2efeceb21ce46bf.png" target="_blank"><img src="resources/ecfbde3e279aa63a0df26c76a5c97f3893bb1e0631d8fe1ea2efeceb21ce46bf.png" alt="【W】漫画/写真详情顶部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.image_detail.top.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/ecfbde3e279aa63a0df26c76a5c97f3893bb1e0631d8fe1ea2efeceb21ce46bf.png" target="_blank"><img src="resources/ecfbde3e279aa63a0df26c76a5c97f3893bb1e0631d8fe1ea2efeceb21ce46bf.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-14" data-platform="web" data-search="web 【w】漫画/写真详情底部横幅 w.image_detail.bottom.banner 16：9 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-14">14</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】漫画/写真详情底部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.image_detail.bottom.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/1a09887720f791cdeb6df9b610d6d3fbbc1f543be8b920c30cfe463ddbfa8f1e.png" target="_blank"><img src="resources/1a09887720f791cdeb6df9b610d6d3fbbc1f543be8b920c30cfe463ddbfa8f1e.png" alt="【W】漫画/写真详情底部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.image_detail.bottom.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/1a09887720f791cdeb6df9b610d6d3fbbc1f543be8b920c30cfe463ddbfa8f1e.png" target="_blank"><img src="resources/1a09887720f791cdeb6df9b610d6d3fbbc1f543be8b920c30cfe463ddbfa8f1e.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-15" data-platform="web" data-search="web y06 漫画列表广告（原【w】漫画/小说/写真列表中的穿插广告） comiccontentlistady06 3：4 1.间隔数为0或小于内容数，隐藏不占位；
+2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插 点击调/fronted/ad/track" data-ratio="3：4" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-15">15</a>
+        <div><div class="card-kicker">WEB</div><h2>Y06 漫画列表广告（原【W】漫画/小说/写真列表中的穿插广告）</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>comicContentListAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">3：4</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/50edb584ed26cd1a7efa44adadde71702f396950b205a38d3c8989e926a3e3cd.png" target="_blank"><img src="resources/50edb584ed26cd1a7efa44adadde71702f396950b205a38d3c8989e926a3e3cd.png" alt="Y06 漫画列表广告（原【W】漫画/小说/写真列表中的穿插广告） 示例图"></a></div>
+      <div class="notes"><p>1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</p><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">comicContentListAdY06</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/50edb584ed26cd1a7efa44adadde71702f396950b205a38d3c8989e926a3e3cd.png" target="_blank"><img src="resources/50edb584ed26cd1a7efa44adadde71702f396950b205a38d3c8989e926a3e3cd.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-16" data-platform="web" data-search="web y06 长视频列表广告（原【w】长视频列表中的穿插广告） videolistmidady06 细分主题 1 细分主题 1 1.间隔数为0或小于内容数，隐藏不占位；
+2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插" data-ratio="" data-has-image="no">
+      <div class="card-head">
+        <a class="num" href="#web-item-16">16</a>
+        <div><div class="card-kicker">WEB</div><h2>Y06 长视频列表广告（原【W】长视频列表中的穿插广告）</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>videoListMidAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="muted">未标注</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="no-image">无图片</div>
+      <div class="notes"><p>1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">videoListMidAdY06</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-17" data-platform="web" data-search="web y06 短视频内容列表广告（原【w】短视频列表中的穿插广告） shortvideolistady06 细分主题 1 细分主题 1 1.间隔数为0或小于内容数，隐藏不占位；
+2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插" data-ratio="" data-has-image="no">
+      <div class="card-head">
+        <a class="num" href="#web-item-17">17</a>
+        <div><div class="card-kicker">WEB</div><h2>Y06 短视频内容列表广告（原【W】短视频列表中的穿插广告）</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>shortVideoListAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="muted">未标注</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="no-image">无图片</div>
+      <div class="notes"><p>1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">shortVideoListAdY06</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-18" data-platform="web" data-search="web 【w】帖子列表中的穿插广告-横版-a1 postcontentlistady06 细分主题 1 细分主题 1 1.间隔数为0或小于内容数，隐藏不占位；
+2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插" data-ratio="" data-has-image="no">
+      <div class="card-head">
+        <a class="num" href="#web-item-18">18</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】帖子列表中的穿插广告-横版-A1</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>postContentListAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="muted">未标注</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="no-image">无图片</div>
+      <div class="notes"><p>1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">postContentListAdY06</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；<br>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-19" data-platform="web" data-search="web 【w】帖子详情页顶部横幅 w.community_detail.top.banner 16：9 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-19">19</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】帖子详情页顶部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.community_detail.top.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/76de3ee0d4025a3766edb38ce02d39cf38ad97872ab5f9cb0d08585287918922.png" target="_blank"><img src="resources/76de3ee0d4025a3766edb38ce02d39cf38ad97872ab5f9cb0d08585287918922.png" alt="【W】帖子详情页顶部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.community_detail.top.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/76de3ee0d4025a3766edb38ce02d39cf38ad97872ab5f9cb0d08585287918922.png" target="_blank"><img src="resources/76de3ee0d4025a3766edb38ce02d39cf38ad97872ab5f9cb0d08585287918922.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-20" data-platform="web" data-search="web 【w】帖子详情页底部横幅 w.community_detail.linline.banner 16：9 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-20">20</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】帖子详情页底部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.community_detail.linline.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/98fc378b5e67159bffe56d269193263fa5d570ae8e5da8cd02151718cbd44426.png" target="_blank"><img src="resources/98fc378b5e67159bffe56d269193263fa5d570ae8e5da8cd02151718cbd44426.png" alt="【W】帖子详情页底部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.community_detail.linline.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/98fc378b5e67159bffe56d269193263fa5d570ae8e5da8cd02151718cbd44426.png" target="_blank"><img src="resources/98fc378b5e67159bffe56d269193263fa5d570ae8e5da8cd02151718cbd44426.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-21" data-platform="web" data-search="web 【w】视频详情页面弹窗广告 w.video_detail.overlay.popup 3：4 点击调/fronted/ad/track" data-ratio="3：4" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-21">21</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】视频详情页面弹窗广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.video_detail.overlay.popup</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">3：4</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/7535d897d35cb9f381bb3e97a24cad902e9aaa660c38e60e8473d9f3660203b0.png" target="_blank"><img src="resources/7535d897d35cb9f381bb3e97a24cad902e9aaa660c38e60e8473d9f3660203b0.png" alt="【W】视频详情页面弹窗广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.video_detail.overlay.popup</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/7535d897d35cb9f381bb3e97a24cad902e9aaa660c38e60e8473d9f3660203b0.png" target="_blank"><img src="resources/7535d897d35cb9f381bb3e97a24cad902e9aaa660c38e60e8473d9f3660203b0.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-22" data-platform="web" data-search="web y06 网站视频贴片广告（【w】播放前广告） videopatchady06 16：9 需关注关闭跳转概率 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-22">22</a>
+        <div><div class="card-kicker">WEB</div><h2>Y06 网站视频贴片广告（【W】播放前广告）</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>videoPatchAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/ccc3fd03cf639028ff61c039fc4326b5e33b6c2dc0a97ca725d23a3bfce922c1.png" target="_blank"><img src="resources/ccc3fd03cf639028ff61c039fc4326b5e33b6c2dc0a97ca725d23a3bfce922c1.png" alt="Y06 网站视频贴片广告（【W】播放前广告） 示例图"></a><a href="resources/08e2aa3040eb3f5c10f8774bf5c76a2d91448ce15fab01028aba4df040790f65.png" target="_blank"><img src="resources/08e2aa3040eb3f5c10f8774bf5c76a2d91448ce15fab01028aba4df040790f65.png" alt="Y06 网站视频贴片广告（【W】播放前广告） 示例图"></a></div>
+      <div class="notes"><p>需关注关闭跳转概率</p><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">videoPatchAdY06</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/ccc3fd03cf639028ff61c039fc4326b5e33b6c2dc0a97ca725d23a3bfce922c1.png" target="_blank"><img src="resources/ccc3fd03cf639028ff61c039fc4326b5e33b6c2dc0a97ca725d23a3bfce922c1.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">需关注关闭跳转概率</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/08e2aa3040eb3f5c10f8774bf5c76a2d91448ce15fab01028aba4df040790f65.png" target="_blank"><img src="resources/08e2aa3040eb3f5c10f8774bf5c76a2d91448ce15fab01028aba4df040790f65.png" alt="广告位截图"></a><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-23" data-platform="web" data-search="web 【w】播放暂停覆盖广告 w.player.overlay.pause 16：9 需关注关闭跳转概率 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-23">23</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】播放暂停覆盖广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.player.overlay.pause</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/1a20d99fcd4b2705a6e7e49634a595ff32d2ba60306f1c4a4ad985168859150b.png" target="_blank"><img src="resources/1a20d99fcd4b2705a6e7e49634a595ff32d2ba60306f1c4a4ad985168859150b.png" alt="【W】播放暂停覆盖广告 示例图"></a></div>
+      <div class="notes"><p>需关注关闭跳转概率</p><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.player.overlay.pause</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/1a20d99fcd4b2705a6e7e49634a595ff32d2ba60306f1c4a4ad985168859150b.png" target="_blank"><img src="resources/1a20d99fcd4b2705a6e7e49634a595ff32d2ba60306f1c4a4ad985168859150b.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">需关注关闭跳转概率</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-24" data-platform="web" data-search="web 【w】播放结束覆盖广告 w.player.overlay.end 16：9 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-24">24</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】播放结束覆盖广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.player.overlay.end</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/c2399e85a26b732681868a5117c5959530f9cd39f7d6509a107a78b9849901d0.png" target="_blank"><img src="resources/c2399e85a26b732681868a5117c5959530f9cd39f7d6509a107a78b9849901d0.png" alt="【W】播放结束覆盖广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.player.overlay.end</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/c2399e85a26b732681868a5117c5959530f9cd39f7d6509a107a78b9849901d0.png" target="_blank"><img src="resources/c2399e85a26b732681868a5117c5959530f9cd39f7d6509a107a78b9849901d0.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-25" data-platform="web" data-search="web 【w】视频详情页播放器下方结构位横幅 w.video_detail.inline.banner 16：9 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-25">25</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】视频详情页播放器下方结构位横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.video_detail.inline.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/824094d37dd0567f9dfc90e9d1d41397063302d4c072d051b83898c3b13317a0.png" target="_blank"><img src="resources/824094d37dd0567f9dfc90e9d1d41397063302d4c072d051b83898c3b13317a0.png" alt="【W】视频详情页播放器下方结构位横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.video_detail.inline.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/824094d37dd0567f9dfc90e9d1d41397063302d4c072d051b83898c3b13317a0.png" target="_blank"><img src="resources/824094d37dd0567f9dfc90e9d1d41397063302d4c072d051b83898c3b13317a0.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-26" data-platform="web" data-search="web 【w】个人中心弹窗广告 w.profile.overlay.popup 3：4 点击调/fronted/ad/track" data-ratio="3：4" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-26">26</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】个人中心弹窗广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.profile.overlay.popup</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">3：4</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/3aa328698b0ca7db3c63db2a32d6fa56ffc2a6df39e9a5c3517a233eed7c756c.png" target="_blank"><img src="resources/3aa328698b0ca7db3c63db2a32d6fa56ffc2a6df39e9a5c3517a233eed7c756c.png" alt="【W】个人中心弹窗广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.profile.overlay.popup</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/3aa328698b0ca7db3c63db2a32d6fa56ffc2a6df39e9a5c3517a233eed7c756c.png" target="_blank"><img src="resources/3aa328698b0ca7db3c63db2a32d6fa56ffc2a6df39e9a5c3517a233eed7c756c.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-27" data-platform="web" data-search="web 【w】个人中心中部横幅 w.profile.inline.banner 16：9 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-27">27</a>
+        <div><div class="card-kicker">WEB</div><h2>【W】个人中心中部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>w.profile.inline.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/cdcf0dcd685ef581db65ceeaeb4bca0bfee5b67ff8295704741364c17bc069cf.png" target="_blank"><img src="resources/cdcf0dcd685ef581db65ceeaeb4bca0bfee5b67ff8295704741364c17bc069cf.png" alt="【W】个人中心中部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">w.profile.inline.banner</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/cdcf0dcd685ef581db65ceeaeb4bca0bfee5b67ff8295704741364c17bc069cf.png" target="_blank"><img src="resources/cdcf0dcd685ef581db65ceeaeb4bca0bfee5b67ff8295704741364c17bc069cf.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-28" data-platform="web" data-search="web 应用中心底部广告banner（原【w】应用中心顶部横幅） appcenterbottom" data-ratio="" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-28">28</a>
+        <div><div class="card-kicker">WEB</div><h2>应用中心底部广告banner（原【W】应用中心顶部横幅）</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>appCenterBottom</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="muted">未标注</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/df744ec6b131eb75c982cf99a74b616d8d43e7564d590c238438acc12b3176fc.png" target="_blank"><img src="resources/df744ec6b131eb75c982cf99a74b616d8d43e7564d590c238438acc12b3176fc.png" alt="应用中心底部广告banner（原【W】应用中心顶部横幅） 示例图"></a></div>
+      <p class="muted empty-note">无额外说明</p>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">appCenterBottom</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/df744ec6b131eb75c982cf99a74b616d8d43e7564d590c238438acc12b3176fc.png" target="_blank"><img src="resources/df744ec6b131eb75c982cf99a74b616d8d43e7564d590c238438acc12b3176fc.png" alt="广告位截图"></a></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="web-item-29" data-platform="web" data-search="web 应用中心顶部广告（原【w】应用中心顶部横幅） appcenterhometop" data-ratio="" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#web-item-29">29</a>
+        <div><div class="card-kicker">WEB</div><h2>应用中心顶部广告（原【W】应用中心顶部横幅）</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>appCenterHomeTop</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="muted">未标注</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/bbf401a91081e704c5ff5fe6f470022b500abced0a08086aecd6ef7e53863f5a.png" target="_blank"><img src="resources/bbf401a91081e704c5ff5fe6f470022b500abced0a08086aecd6ef7e53863f5a.png" alt="应用中心顶部广告（原【W】应用中心顶部横幅） 示例图"></a></div>
+      <p class="muted empty-note">无额外说明</p>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">appCenterHomeTop</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/bbf401a91081e704c5ff5fe6f470022b500abced0a08086aecd6ef7e53863f5a.png" target="_blank"><img src="resources/bbf401a91081e704c5ff5fe6f470022b500abced0a08086aecd6ef7e53863f5a.png" alt="广告位截图"></a></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-1" data-platform="mobile" data-search="移动端 【a】主开屏广告位 launch.overlay.main h5 注意关注强制观看x秒 点击调/fronted/ad/track 9：19.5 安卓" data-ratio="9：19.5" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-1">01</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】主开屏广告位</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>launch.overlay.main</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">9：19.5</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/d768f1275ba5a0a1024ffc3eec423e1a279773f90040c810c988e075c00a7220.png" target="_blank"><img src="resources/d768f1275ba5a0a1024ffc3eec423e1a279773f90040c810c988e075c00a7220.png" alt="【A】主开屏广告位 示例图"></a></div>
+      <div class="notes"><p>注意关注强制观看x秒</p><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">launch.overlay.main</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/d768f1275ba5a0a1024ffc3eec423e1a279773f90040c810c988e075c00a7220.png" target="_blank"><img src="resources/d768f1275ba5a0a1024ffc3eec423e1a279773f90040c810c988e075c00a7220.png" alt="广告位截图"></a><ul><li><span class="tree-title">注意关注强制观看x秒</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li><li><span class="tree-title">9：19.5</span></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-2" data-platform="mobile" data-search="移动端 启动页九宫格
+【热门应用】 home.overlay.icon h5 端 1：1 点击调/fronted/ad/track 安卓" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-2">02</a>
+        <div><div class="card-kicker">移动端</div><h2>启动页九宫格<br>【热门应用】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>home.overlay.icon</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/055c14b4472e1f20613955e5459a63f254b6972016872773e0e345eaa4b0bc07.png" target="_blank"><img src="resources/055c14b4472e1f20613955e5459a63f254b6972016872773e0e345eaa4b0bc07.png" alt="启动页九宫格
+【热门应用】 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">home.overlay.icon</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/055c14b4472e1f20613955e5459a63f254b6972016872773e0e345eaa4b0bc07.png" target="_blank"><img src="resources/055c14b4472e1f20613955e5459a63f254b6972016872773e0e345eaa4b0bc07.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-3" data-platform="mobile" data-search="移动端 主页弹窗广告 home.overlay.popup h5 端 3：4 点击调/fronted/ad/track 安卓" data-ratio="3：4" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-3">03</a>
+        <div><div class="card-kicker">移动端</div><h2>主页弹窗广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>home.overlay.popup</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">3：4</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/a72c9c1370451aba5d3a79cc2341f49a80aabbd537853085ca0b869c5bed02ca.png" target="_blank"><img src="resources/a72c9c1370451aba5d3a79cc2341f49a80aabbd537853085ca0b869c5bed02ca.png" alt="主页弹窗广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">home.overlay.popup</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/a72c9c1370451aba5d3a79cc2341f49a80aabbd537853085ca0b869c5bed02ca.png" target="_blank"><img src="resources/a72c9c1370451aba5d3a79cc2341f49a80aabbd537853085ca0b869c5bed02ca.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-4" data-platform="mobile" data-search="移动端 【a】各主页顶部icon式广告位
+【❗️仅展示在首页封面页❗️】 home.top.icon h5 端 1：1 点击调/fronted/ad/track 安卓" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-4">04</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】各主页顶部icon式广告位<br>【❗️仅展示在首页封面页❗️】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>home.top.icon</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/b570465c9bfc3f889f3f14cd06aa37b0471c82501ffa6817e2717f08e2534319.png" target="_blank"><img src="resources/b570465c9bfc3f889f3f14cd06aa37b0471c82501ffa6817e2717f08e2534319.png" alt="【A】各主页顶部icon式广告位
+【❗️仅展示在首页封面页❗️】 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">home.top.icon</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/b570465c9bfc3f889f3f14cd06aa37b0471c82501ffa6817e2717f08e2534319.png" target="_blank"><img src="resources/b570465c9bfc3f889f3f14cd06aa37b0471c82501ffa6817e2717f08e2534319.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-5" data-platform="mobile" data-search="移动端 用于各页面底部图标广告
+【a】首页底部横幅】
+【❗️仅展示在首页封面页❗️】 home.bottom.banner h5 端 1：1 点击调/fronted/ad/track 安卓" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-5">05</a>
+        <div><div class="card-kicker">移动端</div><h2>用于各页面底部图标广告<br>【A】首页底部横幅】<br>【❗️仅展示在首页封面页❗️】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>home.bottom.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/61a62cfc07446067805f6c4e05ef90d4dc086737d79db3780ea8a611267abbf4.png" target="_blank"><img src="resources/61a62cfc07446067805f6c4e05ef90d4dc086737d79db3780ea8a611267abbf4.png" alt="用于各页面底部图标广告
+【A】首页底部横幅】
+【❗️仅展示在首页封面页❗️】 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">home.bottom.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/61a62cfc07446067805f6c4e05ef90d4dc086737d79db3780ea8a611267abbf4.png" target="_blank"><img src="resources/61a62cfc07446067805f6c4e05ef90d4dc086737d79db3780ea8a611267abbf4.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-6" data-platform="mobile" data-search="移动端 【a】主页浮窗广告位
+【展示位置：
+1.首页封面页；
+2.一级菜单页面（除应用中心/ai第三方）；
+3.视频详情页悬浮；
+4.漫画阅读页悬浮；
+5.帖子阅读页悬浮；
+6.小说阅读页悬浮；】 home.overlay.float h5 端 1：1 点击调/fronted/ad/track 安卓" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-6">06</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】主页浮窗广告位<br>【展示位置：<br>1.首页封面页；<br>2.一级菜单页面（除应用中心/AI第三方）；<br>3.视频详情页悬浮；<br>4.漫画阅读页悬浮；<br>5.帖子阅读页悬浮；<br>6.小说阅读页悬浮；】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>home.overlay.float</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/f261a449828ef2b5e367c2d5f12919fcd8572a8d42e2c9eb4e4b479dcebee3f2.png" target="_blank"><img src="resources/f261a449828ef2b5e367c2d5f12919fcd8572a8d42e2c9eb4e4b479dcebee3f2.png" alt="【A】主页浮窗广告位
+【展示位置：
+1.首页封面页；
+2.一级菜单页面（除应用中心/AI第三方）；
+3.视频详情页悬浮；
+4.漫画阅读页悬浮；
+5.帖子阅读页悬浮；
+6.小说阅读页悬浮；】 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">home.overlay.float</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/f261a449828ef2b5e367c2d5f12919fcd8572a8d42e2c9eb4e4b479dcebee3f2.png" target="_blank"><img src="resources/f261a449828ef2b5e367c2d5f12919fcd8572a8d42e2c9eb4e4b479dcebee3f2.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-7" data-platform="mobile" data-search="移动端 【a】主页底部悬浮广告
+【展示位置：
+1.首页封面页；
+2.一级菜单页面（除应用中心/ai第三方）；
+3.视频详情页悬浮；
+4.漫画阅读页悬浮；
+5.帖子阅读页悬浮；
+6.小说阅读页悬浮；】 home.bottom.float h5 端 1：1 点击调/fronted/ad/track 安卓" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-7">07</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】主页底部悬浮广告<br>【展示位置：<br>1.首页封面页；<br>2.一级菜单页面（除应用中心/AI第三方）；<br>3.视频详情页悬浮；<br>4.漫画阅读页悬浮；<br>5.帖子阅读页悬浮；<br>6.小说阅读页悬浮；】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>home.bottom.float</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/32f9b1dbb008066f320d6852eca4394442fdc5144cde386811a871a791a04bed.png" target="_blank"><img src="resources/32f9b1dbb008066f320d6852eca4394442fdc5144cde386811a871a791a04bed.png" alt="【A】主页底部悬浮广告
+【展示位置：
+1.首页封面页；
+2.一级菜单页面（除应用中心/AI第三方）；
+3.视频详情页悬浮；
+4.漫画阅读页悬浮；
+5.帖子阅读页悬浮；
+6.小说阅读页悬浮；】 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">home.bottom.float</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">端</span><a class="tree-image-link" href="resources/32f9b1dbb008066f320d6852eca4394442fdc5144cde386811a871a791a04bed.png" target="_blank"><img src="resources/32f9b1dbb008066f320d6852eca4394442fdc5144cde386811a871a791a04bed.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-8" data-platform="mobile" data-search="移动端 y06-视频贴片广告 videopatchady06app h5 16：9 点击调/fronted/ad/track 需注意关闭概率 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-8">08</a>
+        <div><div class="card-kicker">移动端</div><h2>Y06-视频贴片广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>videoPatchAdY06APP</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/24eecc532c9972e6fd0293f04a0d5d0ed8a845c7a31735908f7b47f612e608aa.png" target="_blank"><img src="resources/24eecc532c9972e6fd0293f04a0d5d0ed8a845c7a31735908f7b47f612e608aa.png" alt="Y06-视频贴片广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p><p>需注意关闭概率</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">videoPatchAdY06APP</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/24eecc532c9972e6fd0293f04a0d5d0ed8a845c7a31735908f7b47f612e608aa.png" target="_blank"><img src="resources/24eecc532c9972e6fd0293f04a0d5d0ed8a845c7a31735908f7b47f612e608aa.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span><ul><li><span class="tree-title">需注意关闭概率</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-9" data-platform="mobile" data-search="移动端 【a】首页顶部横幅
+【❗️仅首页封面页下展示❗️】】 home.top.banner h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-9">09</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】首页顶部横幅<br>【❗️仅首页封面页下展示❗️】】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>home.top.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/2a1f4ffb2066912760861aa56964006fc55e2ac7a38a84ec8d8919b7cc770d96.png" target="_blank"><img src="resources/2a1f4ffb2066912760861aa56964006fc55e2ac7a38a84ec8d8919b7cc770d96.png" alt="【A】首页顶部横幅
+【❗️仅首页封面页下展示❗️】】 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">home.top.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/2a1f4ffb2066912760861aa56964006fc55e2ac7a38a84ec8d8919b7cc770d96.png" target="_blank"><img src="resources/2a1f4ffb2066912760861aa56964006fc55e2ac7a38a84ec8d8919b7cc770d96.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-10" data-platform="mobile" data-search="移动端 【a】首页底部横幅
+【❗️仅首页封面页下展示❗️】】 home.bottom.banner h5 细分主题 1 细分主题 1 点击调/fronted/ad/track 安卓" data-ratio="" data-has-image="no">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-10">10</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】首页底部横幅<br>【❗️仅首页封面页下展示❗️】】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>home.bottom.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="muted">未标注</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="no-image">无图片</div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">home.bottom.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-11" data-platform="mobile" data-search="移动端 一级菜单广告 appbannery06 h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-11">11</a>
+        <div><div class="card-kicker">移动端</div><h2>一级菜单广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>appBannerY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/4b317f657d9fc278e191ed91355021009edb3c628a0b62f470e84184410a775d.png" target="_blank"><img src="resources/4b317f657d9fc278e191ed91355021009edb3c628a0b62f470e84184410a775d.png" alt="一级菜单广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">appBannerY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/4b317f657d9fc278e191ed91355021009edb3c628a0b62f470e84184410a775d.png" target="_blank"><img src="resources/4b317f657d9fc278e191ed91355021009edb3c628a0b62f470e84184410a775d.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-12" data-platform="mobile" data-search="移动端 【a】二级菜单顶部-banner （二级菜单页里不显示一级菜单的banner） bannerady06 h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-12">12</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】二级菜单顶部-banner （二级菜单页里不显示一级菜单的banner）</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>bannerAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/a8afde6094083b675d976033536233dbbbfb05c1e333bc3c13203bc09209c0de.png" target="_blank"><img src="resources/a8afde6094083b675d976033536233dbbbfb05c1e333bc3c13203bc09209c0de.png" alt="【A】二级菜单顶部-banner （二级菜单页里不显示一级菜单的banner） 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">bannerAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/a8afde6094083b675d976033536233dbbbfb05c1e333bc3c13203bc09209c0de.png" target="_blank"><img src="resources/a8afde6094083b675d976033536233dbbbfb05c1e333bc3c13203bc09209c0de.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-13" data-platform="mobile" data-search="移动端 y06 短视频内容列表广告 shortvideolistady06 h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-13">13</a>
+        <div><div class="card-kicker">移动端</div><h2>Y06 短视频内容列表广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>shortVideoListAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/0ec6d8824b0d8b28bc6d8f896a557d6e5485d88e3909eb71ae0eadf9384e0ba8.png" target="_blank"><img src="resources/0ec6d8824b0d8b28bc6d8f896a557d6e5485d88e3909eb71ae0eadf9384e0ba8.png" alt="Y06 短视频内容列表广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">shortVideoListAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/0ec6d8824b0d8b28bc6d8f896a557d6e5485d88e3909eb71ae0eadf9384e0ba8.png" target="_blank"><img src="resources/0ec6d8824b0d8b28bc6d8f896a557d6e5485d88e3909eb71ae0eadf9384e0ba8.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-14" data-platform="mobile" data-search="移动端 【a】首页-中插-横幅 home.inline.banner h5 16：9 点击调/fronted/ad/track 1.只展示在首页封面页
+1.1 间隔数=n，（n＞1）每n个菜单后插入广告
+2.需设置间隔数
+3.以下情景不展示：
+3.1 广告位下无有效素材
+3.2间隔数设置为0
+3.3 间隔数设置大于展示在封面页的可配置一级菜单数 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-14">14</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】首页-中插-横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>home.inline.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/7173dd7e41896cade77f0393795a8cd580a9b716ed1b613fe1f46f7f0a801186.png" target="_blank"><img src="resources/7173dd7e41896cade77f0393795a8cd580a9b716ed1b613fe1f46f7f0a801186.png" alt="【A】首页-中插-横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p><p>1.只展示在首页封面页<br>1.1 间隔数=n，（n＞1）每n个菜单后插入广告<br>2.需设置间隔数<br>3.以下情景不展示：<br>3.1 广告位下无有效素材<br>3.2间隔数设置为0<br>3.3 间隔数设置大于展示在封面页的可配置一级菜单数</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">home.inline.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/7173dd7e41896cade77f0393795a8cd580a9b716ed1b613fe1f46f7f0a801186.png" target="_blank"><img src="resources/7173dd7e41896cade77f0393795a8cd580a9b716ed1b613fe1f46f7f0a801186.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span><ul><li><span class="tree-title">1.只展示在首页封面页<br>1.1 间隔数=n，（n＞1）每n个菜单后插入广告<br>2.需设置间隔数<br>3.以下情景不展示：<br>3.1 广告位下无有效素材<br>3.2间隔数设置为0<br>3.3 间隔数设置大于展示在封面页的可配置一级菜单数</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-15" data-platform="mobile" data-search="移动端 【a】搜索页顶部图标位广告-a search.top.icon h5 1：1 点击调/fronted/ad/track 安卓" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-15">15</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】搜索页顶部图标位广告-A</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>search.top.icon</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/9e2a45edfeaab09a1ed988e1105b609bd7c1173cb486dd7f66e5b210532b9ab0.png" target="_blank"><img src="resources/9e2a45edfeaab09a1ed988e1105b609bd7c1173cb486dd7f66e5b210532b9ab0.png" alt="【A】搜索页顶部图标位广告-A 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">search.top.icon</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/9e2a45edfeaab09a1ed988e1105b609bd7c1173cb486dd7f66e5b210532b9ab0.png" target="_blank"><img src="resources/9e2a45edfeaab09a1ed988e1105b609bd7c1173cb486dd7f66e5b210532b9ab0.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-16" data-platform="mobile" data-search="移动端 【a】搜索页顶部横幅-b searchpageady06 h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-16">16</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】搜索页顶部横幅-B</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>searchPageAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/69c0248fe70d14f996f9d201374a45d99ada20a8e813e491ae8ac2b3e7af5dc2.png" target="_blank"><img src="resources/69c0248fe70d14f996f9d201374a45d99ada20a8e813e491ae8ac2b3e7af5dc2.png" alt="【A】搜索页顶部横幅-B 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">searchPageAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/69c0248fe70d14f996f9d201374a45d99ada20a8e813e491ae8ac2b3e7af5dc2.png" target="_blank"><img src="resources/69c0248fe70d14f996f9d201374a45d99ada20a8e813e491ae8ac2b3e7af5dc2.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-17" data-platform="mobile" data-search="移动端 app应用中心顶部banner appcenterhometopapp 16：9 点击调/fronted/ad/track" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-17">17</a>
+        <div><div class="card-kicker">移动端</div><h2>APP应用中心顶部banner</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>appCenterHomeTopapp</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/b7277a32bd512cef3382f2bebf444052eb30e7ab992f2b38af38355f392bfbb7.png" target="_blank"><img src="resources/b7277a32bd512cef3382f2bebf444052eb30e7ab992f2b38af38355f392bfbb7.png" alt="APP应用中心顶部banner 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">appCenterHomeTopapp</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/b7277a32bd512cef3382f2bebf444052eb30e7ab992f2b38af38355f392bfbb7.png" target="_blank"><img src="resources/b7277a32bd512cef3382f2bebf444052eb30e7ab992f2b38af38355f392bfbb7.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-18" data-platform="mobile" data-search="移动端 【a】应用中心底部横幅 application.bottom.banner h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-18">18</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】应用中心底部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>application.bottom.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/69e12e9a84816457b5331a80a653ae2526b978f95ea80bfca952ce26f655e281.png" target="_blank"><img src="resources/69e12e9a84816457b5331a80a653ae2526b978f95ea80bfca952ce26f655e281.png" alt="【A】应用中心底部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">application.bottom.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/69e12e9a84816457b5331a80a653ae2526b978f95ea80bfca952ce26f655e281.png" target="_blank"><img src="resources/69e12e9a84816457b5331a80a653ae2526b978f95ea80bfca952ce26f655e281.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-19" data-platform="mobile" data-search="移动端 【a】应用中心底部悬浮广告 appcenterbottomapp h5 1：1 点击调/fronted/ad/track 安卓" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-19">19</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】应用中心底部悬浮广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>appCenterBottomapp</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/f7d5aa69d428abc892e04e9b79cba99b7b6260dddb51dba606cf88c822ff3792.png" target="_blank"><img src="resources/f7d5aa69d428abc892e04e9b79cba99b7b6260dddb51dba606cf88c822ff3792.png" alt="【A】应用中心底部悬浮广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">appCenterBottomapp</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/f7d5aa69d428abc892e04e9b79cba99b7b6260dddb51dba606cf88c822ff3792.png" target="_blank"><img src="resources/f7d5aa69d428abc892e04e9b79cba99b7b6260dddb51dba606cf88c822ff3792.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-20" data-platform="mobile" data-search="移动端 【a】漫画/写真详情顶部横幅 image_detail.top.banner h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-20">20</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】漫画/写真详情顶部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>image_detail.top.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/7e728ac1a4f1cbb9318bda38fddf2d8acbe01f2e6ed3a8a48c02057f86c53a1e.png" target="_blank"><img src="resources/7e728ac1a4f1cbb9318bda38fddf2d8acbe01f2e6ed3a8a48c02057f86c53a1e.png" alt="【A】漫画/写真详情顶部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">image_detail.top.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/7e728ac1a4f1cbb9318bda38fddf2d8acbe01f2e6ed3a8a48c02057f86c53a1e.png" target="_blank"><img src="resources/7e728ac1a4f1cbb9318bda38fddf2d8acbe01f2e6ed3a8a48c02057f86c53a1e.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-21" data-platform="mobile" data-search="移动端 【a】漫画/写真详情底部横幅 image_detail.bottom.banner h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-21">21</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】漫画/写真详情底部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>image_detail.bottom.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/cd9d5bef20959f0b15e59c27d4d6ea90556e7330c757ab6f09a2ab652677511b.png" target="_blank"><img src="resources/cd9d5bef20959f0b15e59c27d4d6ea90556e7330c757ab6f09a2ab652677511b.png" alt="【A】漫画/写真详情底部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">image_detail.bottom.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/cd9d5bef20959f0b15e59c27d4d6ea90556e7330c757ab6f09a2ab652677511b.png" target="_blank"><img src="resources/cd9d5bef20959f0b15e59c27d4d6ea90556e7330c757ab6f09a2ab652677511b.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-22" data-platform="mobile" data-search="移动端 y06 漫画列表广告 comiccontentlistady06app h5 3：4 点击调/fronted/ad/track 安卓" data-ratio="3：4" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-22">22</a>
+        <div><div class="card-kicker">移动端</div><h2>Y06 漫画列表广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>comicContentListAdY06app</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">3：4</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/6575a90b01f969478b33914044537bb8cd288ab87bda50cc54c9a90bd5b4aac2.png" target="_blank"><img src="resources/6575a90b01f969478b33914044537bb8cd288ab87bda50cc54c9a90bd5b4aac2.png" alt="Y06 漫画列表广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">comicContentListAdY06app</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/6575a90b01f969478b33914044537bb8cd288ab87bda50cc54c9a90bd5b4aac2.png" target="_blank"><img src="resources/6575a90b01f969478b33914044537bb8cd288ab87bda50cc54c9a90bd5b4aac2.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-23" data-platform="mobile" data-search="移动端 【a】视频详情页面弹窗广告 video_detail.overlay.popup h5 3：4 点击调/fronted/ad/track 安卓" data-ratio="3：4" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-23">23</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】视频详情页面弹窗广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>video_detail.overlay.popup</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">3：4</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/68f896436877715d3c6b3ba9c188ac0cc5712122731d64e491da1c01b31a455e.png" target="_blank"><img src="resources/68f896436877715d3c6b3ba9c188ac0cc5712122731d64e491da1c01b31a455e.png" alt="【A】视频详情页面弹窗广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">video_detail.overlay.popup</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/68f896436877715d3c6b3ba9c188ac0cc5712122731d64e491da1c01b31a455e.png" target="_blank"><img src="resources/68f896436877715d3c6b3ba9c188ac0cc5712122731d64e491da1c01b31a455e.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-24" data-platform="mobile" data-search="移动端 【a】播放暂停覆盖广告 player.overlay.pause h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-24">24</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】播放暂停覆盖广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>player.overlay.pause</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/8640ad0e7a48d1f2a8ea49f3bdef9b9e92d5267d1c896c561b46dd6eba775102.png" target="_blank"><img src="resources/8640ad0e7a48d1f2a8ea49f3bdef9b9e92d5267d1c896c561b46dd6eba775102.png" alt="【A】播放暂停覆盖广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">player.overlay.pause</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/8640ad0e7a48d1f2a8ea49f3bdef9b9e92d5267d1c896c561b46dd6eba775102.png" target="_blank"><img src="resources/8640ad0e7a48d1f2a8ea49f3bdef9b9e92d5267d1c896c561b46dd6eba775102.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-25" data-platform="mobile" data-search="移动端 【a】播放结束覆盖广告 player.overlay.end h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-25">25</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】播放结束覆盖广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>player.overlay.end</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/b14aa1c47fb9605fad83d9c04a1e97a98f5b4ac26263018e48c7d283da5c4279.png" target="_blank"><img src="resources/b14aa1c47fb9605fad83d9c04a1e97a98f5b4ac26263018e48c7d283da5c4279.png" alt="【A】播放结束覆盖广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">player.overlay.end</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/b14aa1c47fb9605fad83d9c04a1e97a98f5b4ac26263018e48c7d283da5c4279.png" target="_blank"><img src="resources/b14aa1c47fb9605fad83d9c04a1e97a98f5b4ac26263018e48c7d283da5c4279.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-26" data-platform="mobile" data-search="移动端 y06 视频详情页 banner videodetailpageady06 h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-26">26</a>
+        <div><div class="card-kicker">移动端</div><h2>Y06 视频详情页 banner</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>videoDetailPageAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/a7dad864197aa62d8af4f8553a78d3a246f8835fe1cd43ae4b09fca28fa5198e.png" target="_blank"><img src="resources/a7dad864197aa62d8af4f8553a78d3a246f8835fe1cd43ae4b09fca28fa5198e.png" alt="Y06 视频详情页 banner 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">videoDetailPageAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/a7dad864197aa62d8af4f8553a78d3a246f8835fe1cd43ae4b09fca28fa5198e.png" target="_blank"><img src="resources/a7dad864197aa62d8af4f8553a78d3a246f8835fe1cd43ae4b09fca28fa5198e.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-27" data-platform="mobile" data-search="移动端 【a】个人中心顶部横幅 profile.top.banner h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-27">27</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】个人中心顶部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>profile.top.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/3213291a6bf7c359e6a4c836f2edb0560d3f2f948abf0f3e2c114a10cfc9dc99.png" target="_blank"><img src="resources/3213291a6bf7c359e6a4c836f2edb0560d3f2f948abf0f3e2c114a10cfc9dc99.png" alt="【A】个人中心顶部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">profile.top.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/3213291a6bf7c359e6a4c836f2edb0560d3f2f948abf0f3e2c114a10cfc9dc99.png" target="_blank"><img src="resources/3213291a6bf7c359e6a4c836f2edb0560d3f2f948abf0f3e2c114a10cfc9dc99.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-28" data-platform="mobile" data-search="移动端 【a】个人中心弹窗广告 profile.overlay.popup h5 3：4 点击调/fronted/ad/track 安卓" data-ratio="3：4" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-28">28</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】个人中心弹窗广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>profile.overlay.popup</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">3：4</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/e47fcfa7125d9f110ccf8e1f045a19b5b28fa1861fc6b201f4018286f19ae44a.png" target="_blank"><img src="resources/e47fcfa7125d9f110ccf8e1f045a19b5b28fa1861fc6b201f4018286f19ae44a.png" alt="【A】个人中心弹窗广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">profile.overlay.popup</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/e47fcfa7125d9f110ccf8e1f045a19b5b28fa1861fc6b201f4018286f19ae44a.png" target="_blank"><img src="resources/e47fcfa7125d9f110ccf8e1f045a19b5b28fa1861fc6b201f4018286f19ae44a.png" alt="广告位截图"></a><ul><li><span class="tree-title">3：4</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-29" data-platform="mobile" data-search="移动端 【a】个人中心中部横幅 profile.inline.banne h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-29">29</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】个人中心中部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>profile.inline.banne</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/dc7adb63f43808e7b70f6586478a1f0a78fabbdcf8ba52db8b65df6e9cd36f83.png" target="_blank"><img src="resources/dc7adb63f43808e7b70f6586478a1f0a78fabbdcf8ba52db8b65df6e9cd36f83.png" alt="【A】个人中心中部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">profile.inline.banne</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/dc7adb63f43808e7b70f6586478a1f0a78fabbdcf8ba52db8b65df6e9cd36f83.png" target="_blank"><img src="resources/dc7adb63f43808e7b70f6586478a1f0a78fabbdcf8ba52db8b65df6e9cd36f83.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-30" data-platform="mobile" data-search="移动端 【a】帖子详情页顶部横幅 community_detail.top.banner h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-30">30</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】帖子详情页顶部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>community_detail.top.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/3e55f4f3dd28f59cff21a63c36b3d70e7cd2f745c6b1b656675f57ca4d514356.png" target="_blank"><img src="resources/3e55f4f3dd28f59cff21a63c36b3d70e7cd2f745c6b1b656675f57ca4d514356.png" alt="【A】帖子详情页顶部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">community_detail.top.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/3e55f4f3dd28f59cff21a63c36b3d70e7cd2f745c6b1b656675f57ca4d514356.png" target="_blank"><img src="resources/3e55f4f3dd28f59cff21a63c36b3d70e7cd2f745c6b1b656675f57ca4d514356.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-31" data-platform="mobile" data-search="移动端 【a】帖子详情页底部横幅 community_detail.linline.banner h5 16：9 点击调/fronted/ad/track 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-31">31</a>
+        <div><div class="card-kicker">移动端</div><h2>【A】帖子详情页底部横幅</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>community_detail.linline.banner</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/93075c82e7af13be66791d3c8de7a46a385c29f9bdeaa899436d6959809db1f4.png" target="_blank"><img src="resources/93075c82e7af13be66791d3c8de7a46a385c29f9bdeaa899436d6959809db1f4.png" alt="【A】帖子详情页底部横幅 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">community_detail.linline.banner</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/93075c82e7af13be66791d3c8de7a46a385c29f9bdeaa899436d6959809db1f4.png" target="_blank"><img src="resources/93075c82e7af13be66791d3c8de7a46a385c29f9bdeaa899436d6959809db1f4.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-32" data-platform="mobile" data-search="移动端 y06 帖子内容列表广告 app postcontentlistady06 h5 16：9 点击调/fronted/ad/track 1.间隔数为0或小于内容数，隐藏不占位； 2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-32">32</a>
+        <div><div class="card-kicker">移动端</div><h2>Y06 帖子内容列表广告 APP</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>postContentListAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/b9b1f6f30d98f5dae459638ab4b7fe4d8f530f83d48aa634c73ab4974008cce6.png" target="_blank"><img src="resources/b9b1f6f30d98f5dae459638ab4b7fe4d8f530f83d48aa634c73ab4974008cce6.png" alt="Y06 帖子内容列表广告 APP 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p><p>1.间隔数为0或小于内容数，隐藏不占位；</p><p>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">postContentListAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/b9b1f6f30d98f5dae459638ab4b7fe4d8f530f83d48aa634c73ab4974008cce6.png" target="_blank"><img src="resources/b9b1f6f30d98f5dae459638ab4b7fe4d8f530f83d48aa634c73ab4974008cce6.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；</span></li><li><span class="tree-title">2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-33" data-platform="mobile" data-search="移动端 y06 长视频列表广告 videolistmidady06 h5 16：9 点击调/fronted/ad/track 1.间隔数为0或小于内容数，隐藏不占位； 2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插 安卓" data-ratio="16：9" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-33">33</a>
+        <div><div class="card-kicker">移动端</div><h2>Y06 长视频列表广告</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><code>videoListMidAdY06</code></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">16：9</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="tag platform-tag">H5</span><span class="tag platform-tag">安卓</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/13de3d1192bcafe420313963a3eaa8c386d33f6965423a0a4d6609a2f8057f0d.png" target="_blank"><img src="resources/13de3d1192bcafe420313963a3eaa8c386d33f6965423a0a4d6609a2f8057f0d.png" alt="Y06 长视频列表广告 示例图"></a></div>
+      <div class="notes"><p>点击调/fronted/ad/track</p><p>1.间隔数为0或小于内容数，隐藏不占位；</p><p>2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</p></div>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">videoListMidAdY06</span><ul><li><span class="tree-title">H5</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/13de3d1192bcafe420313963a3eaa8c386d33f6965423a0a4d6609a2f8057f0d.png" target="_blank"><img src="resources/13de3d1192bcafe420313963a3eaa8c386d33f6965423a0a4d6609a2f8057f0d.png" alt="广告位截图"></a><ul><li><span class="tree-title">16：9</span><ul><li><span class="tree-title">点击调/fronted/ad/track</span><ul><li><span class="tree-title">1.间隔数为0或小于内容数，隐藏不占位；</span></li><li><span class="tree-title">2.间隔数=n，（n＞1）每n个内容后插入1条广告，按配置数值循环穿插</span></li></ul></li></ul></li></ul></li></ul></li><li><span class="tree-title">安卓</span></li></ul></li></ul></details>
+    </article>
+    <article class="card" id="mobile-item-34" data-platform="mobile" data-search="移动端 评论广告【全局】 细分主题 1 1：1" data-ratio="1：1" data-has-image="yes">
+      <div class="card-head">
+        <a class="num" href="#mobile-item-34">34</a>
+        <div><div class="card-kicker">移动端</div><h2>评论广告【全局】</h2></div>
+      </div>
+      <div class="meta-row">
+        <div><span class="label">标识</span><span class="muted">未标注</span></div>
+        <div><span class="label">比例</span><div class="tags"><span class="tag ratio">1：1</span></div></div>
+        <div><span class="label">端</span><div class="tags"><span class="muted">未细分</span></div></div>
+      </div>
+      <div class="image-grid"><a href="resources/db4bfcb834001e4577b6723dcbe8e3ad53df201829780b34cf14e1fffbaa59c4.png" target="_blank"><img src="resources/db4bfcb834001e4577b6723dcbe8e3ad53df201829780b34cf14e1fffbaa59c4.png" alt="评论广告【全局】 示例图"></a></div>
+      <p class="muted empty-note">无额外说明</p>
+      <details class="outline-detail"><summary>查看原始层级</summary><ul class="tree mini"><li><span class="tree-title">细分主题 1</span><ul><li><span class="tree-title">图片</span><a class="tree-image-link" href="resources/db4bfcb834001e4577b6723dcbe8e3ad53df201829780b34cf14e1fffbaa59c4.png" target="_blank"><img src="resources/db4bfcb834001e4577b6723dcbe8e3ad53df201829780b34cf14e1fffbaa59c4.png" alt="广告位截图"></a><ul><li><span class="tree-title">1：1</span></li></ul></li></ul></li></ul></details>
+    </article><div class="empty-results" id="emptyResults">没有匹配结果</div></section></main>
+  <button class="icon-button back-top" id="backTop" type="button" aria-label="返回顶部">↑</button><div class="lightbox" id="imagePreview" hidden><div class="lightbox-bar"><button class="icon-button lightbox-close" id="closePreview" type="button" aria-label="关闭图片预览">×</button></div><div class="lightbox-body"><img id="previewImage" src="" alt=""></div></div>
+  <footer>来源：WEB：/Users/ye/Downloads/Telegram Desktop/Y06-WEB广告位优化 (2).xmind<br>移动端：/Users/ye/Downloads/Telegram Desktop/y06移动端广告位优化.xmind<br>生成时间：2026-06-16 21:45；创建工具：WEB Vana 26.02.04172；移动端 Vana 26.02.04172</footer>
+  <script>
+
+    const search=document.getElementById('search'),clearSearch=document.getElementById('clearSearch'),ratioFilter=document.getElementById('ratioFilter'),imageOnly=document.getElementById('imageOnly'),resultCount=document.getElementById('resultCount'),expandAll=document.getElementById('expandAll'),collapseAll=document.getElementById('collapseAll'),backTop=document.getElementById('backTop'),imagePreview=document.getElementById('imagePreview'),previewImage=document.getElementById('previewImage'),closePreview=document.getElementById('closePreview');
+    const cards=Array.from(document.querySelectorAll('.card')),sidePanels=Array.from(document.querySelectorAll('.nav-panel,.outline-panel')),navLinks=Array.from(document.querySelectorAll('.nav-list a')),navById=new Map(navLinks.map(link=>[link.hash.slice(1),link])),tabButtons=Array.from(document.querySelectorAll('.tab-button')),navGroups=Array.from(document.querySelectorAll('.nav-group')),outlineGroups=Array.from(document.querySelectorAll('.outline-group')),empty=document.getElementById('emptyResults');
+    let activePlatform='all';
+    function clearHighlights(scope){scope.querySelectorAll('mark.search-hit').forEach(mark=>mark.replaceWith(document.createTextNode(mark.textContent)));scope.normalize()}
+    function escapeRegExp(value){return value.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+    function searchTerms(value){return Array.from(new Set(value.trim().split(/\s+/).filter(Boolean)))}
+    function visibleCards(){return cards.filter(card=>!card.hidden)}
+    function setDetailsOpen(card,open){card.querySelectorAll('details').forEach(detail=>{detail.open=open;delete detail.dataset.autoOpened})}
+    function autoOpenDetails(card,shouldOpen){card.querySelectorAll('details').forEach(detail=>{if(shouldOpen&&!detail.open){detail.open=true;detail.dataset.autoOpened='yes'} if(!shouldOpen&&detail.dataset.autoOpened==='yes'){detail.open=false;delete detail.dataset.autoOpened}})}
+    function setActiveNav(id){navLinks.forEach(link=>link.classList.toggle('is-active',link.hash==='#'+id));const active=navById.get(id);if(active)active.scrollIntoView({block:'nearest'})}
+    function highlightMatches(scope,terms){if(!terms.length)return;const pattern=terms.slice().sort((a,b)=>b.length-a.length).map(escapeRegExp).join('|');if(!pattern)return;const matcher=new RegExp(pattern,'gi');const walker=document.createTreeWalker(scope,NodeFilter.SHOW_TEXT,{acceptNode(node){const parent=node.parentElement;if(!parent||!node.nodeValue.trim())return NodeFilter.FILTER_REJECT;if(['SCRIPT','STYLE','MARK','INPUT','SELECT','OPTION'].includes(parent.tagName))return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT}});const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(node=>{const text=node.nodeValue;matcher.lastIndex=0;if(!matcher.test(text))return;matcher.lastIndex=0;const fragment=document.createDocumentFragment();let lastIndex=0;text.replace(matcher,(match,offset)=>{fragment.append(document.createTextNode(text.slice(lastIndex,offset)));const mark=document.createElement('mark');mark.className='search-hit';mark.textContent=match;fragment.append(mark);lastIndex=offset+match.length;return match});fragment.append(document.createTextNode(text.slice(lastIndex)));node.replaceWith(fragment)})}
+    function platformMatches(element){return activePlatform==='all'||element.dataset.platform===activePlatform}
+    function updateGroupedPanels(){[...navGroups,...outlineGroups].forEach(group=>{group.hidden=activePlatform!=='all'&&group.dataset.platform!==activePlatform})}
+    function applyFilters(){const q=search.value.trim().toLowerCase(),terms=searchTerms(search.value),ratio=ratioFilter.value,needsImage=imageOnly.checked;let visible=0;clearSearch.classList.toggle('show',Boolean(q));updateGroupedPanels();sidePanels.forEach(panel=>{clearHighlights(panel);highlightMatches(panel,terms)});cards.forEach(card=>{clearHighlights(card);const show=platformMatches(card)&&(!q||terms.every(term=>card.dataset.search.includes(term.toLowerCase())))&&(!ratio||card.dataset.ratio.includes(ratio))&&(!needsImage||card.dataset.hasImage==='yes');card.hidden=!show;navById.get(card.id)?.classList.toggle('is-filtered-out',!show);if(show){visible+=1;autoOpenDetails(card,terms.length>0);highlightMatches(card,terms)}else autoOpenDetails(card,false)});resultCount.textContent='显示 '+visible+' 个';empty.classList.toggle('show',visible===0);const hashCard=location.hash?document.getElementById(location.hash.slice(1)):null,firstVisible=visibleCards()[0];if(hashCard&&!hashCard.hidden)setActiveNav(hashCard.id);else if(firstVisible)setActiveNav(firstVisible.id)}
+    tabButtons.forEach(button=>button.addEventListener('click',()=>{activePlatform=button.dataset.platform;tabButtons.forEach(tab=>tab.setAttribute('aria-pressed',String(tab===button)));applyFilters()}));
+    search.addEventListener('input',applyFilters);ratioFilter.addEventListener('change',applyFilters);imageOnly.addEventListener('change',applyFilters);clearSearch.addEventListener('click',()=>{search.value='';search.focus();applyFilters()});expandAll.addEventListener('click',()=>visibleCards().forEach(card=>setDetailsOpen(card,true)));collapseAll.addEventListener('click',()=>visibleCards().forEach(card=>setDetailsOpen(card,false)));backTop.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});search.focus({preventScroll:true})});window.addEventListener('scroll',()=>backTop.classList.toggle('show',window.scrollY>480),{passive:true});
+    const cardObserver=new IntersectionObserver(entries=>{const visibleEntry=entries.filter(entry=>entry.isIntersecting&&!entry.target.hidden).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visibleEntry)setActiveNav(visibleEntry.target.id)},{rootMargin:'-34% 0px -54% 0px',threshold:[0,.2,.6,1]});cards.forEach(card=>cardObserver.observe(card));
+    document.addEventListener('click',event=>{const imageLink=event.target.closest('.image-grid a,.tree-image-link');if(!imageLink)return;const image=imageLink.querySelector('img');event.preventDefault();previewImage.src=imageLink.href;previewImage.alt=image?.alt||'广告位截图';imagePreview.hidden=false;closePreview.focus()});function closeImagePreview(){imagePreview.hidden=true;previewImage.removeAttribute('src');previewImage.alt=''}closePreview.addEventListener('click',closeImagePreview);imagePreview.addEventListener('click',event=>{if(event.target===imagePreview||event.target.classList.contains('lightbox-body'))closeImagePreview()});document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!imagePreview.hidden)closeImagePreview()});
+    if(/^#item-\d+$/.test(location.hash))history.replaceState(null,'','#web-'+location.hash.slice(1));applyFilters();
+  </script>
+</body></html>
